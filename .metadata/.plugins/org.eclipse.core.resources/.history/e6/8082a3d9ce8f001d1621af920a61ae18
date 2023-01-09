@@ -1,0 +1,8 @@
+package com.example.springquiz;
+
+public class StudentDto {
+	String name;
+	int age;
+	String javaGrade;
+	String oracleGrade;
+}

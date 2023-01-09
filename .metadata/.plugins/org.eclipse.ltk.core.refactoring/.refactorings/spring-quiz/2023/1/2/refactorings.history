@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.example.springquiz.studentDto&apos; to &apos;StudentDto&apos;&#x0D;&#x0A;- Original project: &apos;spring-quiz&apos;&#x0D;&#x0A;- Original element: &apos;com.example.springquiz.studentDto&apos;&#x0D;&#x0A;- Renamed element: &apos;com.example.springquiz.StudentDto&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;studentDto&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.springquiz{studentDto.java[studentDto" matchStrategy="1" name="StudentDto" qualified="false" references="true" similarDeclarations="false" stamp="1673235361377" textual="false" version="1.0"/>
+</session>
