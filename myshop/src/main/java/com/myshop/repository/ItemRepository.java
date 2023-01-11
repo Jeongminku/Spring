@@ -64,14 +64,19 @@ public interface ItemRepository extends JpaRepository<Item, Long>{
 	List<Item> findByPrice(@Param("price") Integer price);
 	
 	//1월 11일 퀴즈2-2 itemNm이 “테스트 상품1” 이고 ItemSellStatus가 Sell인 레코드를 구하는 @Query 어노테이션을 작성하시오.
+	
 	@Query("select i from Item i where i.itemNm = :itemNm and i.itemSellStatus = :itemsellStatus")
 	List<Item> findByItemNmAndSell(@Param("itemNm") String itemNm , @Param("itemsellStatus")  ItemSellStatus itemsellStatus);
 	
 	@Query("select i from Item i where i.itemNm = ?1 and i.itemSellStatus = ?2")
 	List<Item> findByItemNmAndSell2(String itemNm , ItemSellStatus itemsellStatus);
 	
-	@Query(value = "select * from item i where i.item_nm and i.item_sell_status =  :#{#sell.name()}", nativeQuery = true)
+	
+	//네이티브쿼리 2-2
+	@Query(value = "select * from Item i where i.item_nm = :itemNm and i.item_sell_status = :#{#sell.name()}", nativeQuery = true)
 	List<Item> getIemNmAndItemSellStatus(@Param("itemNm") String itemNm, @Param("sell") ItemSellStatus sell);
-	}
+	
+		
+}
 
 
