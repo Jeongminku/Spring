@@ -1,0 +1,252 @@
+@charset "UTF-8";
+/*전체 초기화 코드 */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	top: 0; /* 위로 붙임. */
+	height: 100px;
+	line-height: 100px;
+	width: 100%;
+	background: #A555EC;
+	text-align: center;
+	font-size: 35px;
+	font-weight: 900;
+	color: white;
+}
+
+nav ul {
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+	background: #D09CFA;
+	overflow: hidden;
+	text-align:center;
+}
+
+nav ul li {
+	display:inline-block;
+	list-style: none;
+	padding: 0 50px;
+}
+
+a{
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+
+a:hover {
+	cursor: pointer;
+	color: red;
+}
+
+a:active {
+	color: green; 
+}
+
+.edit_list{
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+.delete_list{
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+section {
+	position: absolute;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	background: #F3CCFF;
+	font-size: 20px;
+}
+
+section .title {
+	text-align:center;
+	font-size: 40px;
+	font-weight: 600;
+	margin: 20px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height:100px;
+	line-height: 100px;
+	background: black;
+	color: #fff;
+	text-align: center;
+	font-size: 25px;
+}
+
+table {
+	width: 700px;
+	margin: 0 auto;
+	color: white;
+	font-weight: bolder;
+	font-size: 25px;
+	padding: 30px;
+
+}
+
+table td {
+	text-align: center;
+	margin:10px;
+	color: black;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+table th {
+	color:purple;
+	text-shadow: -1.5px 0px white, 0px 1.5px white, 1.5px 0px white, 0px -1.5px white;
+}
+
+.songlist_title {
+	padding: 25px;
+	color: black;
+}
+
+td input, select {
+	float: left;
+	padding: 0.3rem;
+}
+
+.btn {
+	padding: 0.3rem;
+	width:50px;
+	font-size: 15px;
+	margin-left: 10px;
+	color: #FFF;
+  	border-radius: 5px;
+  	background: #A74982;
+}
+
+
+.btn:hover {
+	cursor: pointer;
+	background: #6D184B;
+	
+}
+
+.search_btn {
+	padding: 0.3rem;
+	width:100px;
+	font-size: 15px;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background: rgba(203,153,197,1);
+  	background: -moz-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(203,153,197,1)), color-stop(100%, rgba(181,134,176,1)));
+  	background: -webkit-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: -o-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: -ms-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: linear-gradient(to bottom, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb99c5', endColorstr='#b586b0', GradientType=0 )
+}
+.search_btn:hover {
+	cursor: pointer;
+	background: #633760;
+}
+
+.edit_btn{
+	padding: 0.3rem;
+	width:100px;
+	font-size: 15px;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background: rgba(203,153,197,1);
+  	background: -moz-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(203,153,197,1)), color-stop(100%, rgba(181,134,176,1)));
+  	background: -webkit-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: -o-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: -ms-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: linear-gradient(to bottom, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb99c5', endColorstr='#b586b0', GradientType=0 )
+
+}
+.edit_btn:hover {
+	cursor: pointer;
+	background: #633760;
+}
+
+
+.nickname {
+	width: 200px;
+	height: 300px;
+}
+
+.index_div {
+	padding: 80px;
+}
+
+.inputcode {
+	width: 300px;
+	height: 50px;
+	font-size: 25px; 
+}
+
+.songlist {
+	width: 700px;
+	font-size: 25px;
+	border: 2px dashed black;
+	padding: 15px;
+}
+.song_list{
+	width: 700px;
+	font-size: 25px;
+	border: 2px dashed black;
+	padding: 15px;
+}
+
+
+.main_comment{
+	min-width: 500px;
+	border: 1px solid black;
+	margin-left: 36px;
+}
+
+.rep_btn {
+	font-size:20px;
+}
+
+
+.add_btn {
+	padding: 0.3rem;
+	width:100px;
+	font-size: 15px;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background: rgba(203,153,197,1);
+  	background: -moz-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(203,153,197,1)), color-stop(100%, rgba(181,134,176,1)));
+  	background: -webkit-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: -o-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: -ms-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	background: linear-gradient(to bottom, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+  	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb99c5', endColorstr='#b586b0', GradientType=0 )
+}
+
+.add_btn:hover{
+	cursor: pointer;
+	background: #633760;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
