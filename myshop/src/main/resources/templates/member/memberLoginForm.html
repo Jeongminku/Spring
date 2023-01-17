@@ -5,6 +5,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		//쿠키를 이용한 아이디 기억
+		$(document).ready(function(){
+			var userInputId = getCookie("userInputId"); //쿠키의 key로 값을 가져옵니다.
+			var setCookieYN = getCookie("setCookieYN");
+			
+			if (setCookieYN = 'Y') {
+				$("#id_save").prop("checked", true); //체크박스에 체크를 합니다.
+				$("#email").val(userInputID); //체크박스 체크해둔상태로 userInputID값을 email칸에 넣어둡니다.
+			} else {
+				$("#id_save").prop("checked", false); //체크박스에 체크를 해제 합니다.
+			}
+			
+			//로그인 버튼 클릭
+			$('#loginbtn').click(function() {
+				//아이디를 쿠키에 저장합니다.
+				if($("#is_save").is(":checked")) { //:checked 체크가 되어있으면 true를 리턴합니다.
+					var userInputId = $("#email").val(); //이메일 창에 입력된
+					setCookie("userInputId", userInputId, 60); //setCookie(cookieName, value, exdays)  60일동안 쿠키를 저장합니다.
+					setCookie("setCookieYN", "Y", 60);
+				} else {
+					deleteCookie("userInputId");
+					deleteCookie("setCookieYN");
+				}
+			});
+
+		});
+	</script>
+</th:block>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		//쿠키를 이용한 아이디 기억
+		$(document).ready(function() {
+			var userInputId = getCookie("userInputId");
+			var setCookieYN = getCookie("setCookieYN");
+
+			if (setCookieYN == 'Y') {
+				$("#id_save").prop("checked", true);
+				$("#email").val(userInputId);
+			} else {
+				$("#id_save").prop("checked", false);
+			}
+
+			//로그인 버튼 클릭
+			$('#loginbtn').click(function() {
+				if ($("#id_save").is(":checked")) {
+					var userInputId = $("#email").val();
+					setCookie("userInputId", userInputId, 60);
+					setCookie("setCookieYN", "Y", 60);
+				} else {
+					deleteCookie("userInputId");
+					deleteCookie("setCookieYN");
+				}
+			});
+		});
+	</script>
+</th:block>
+
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
   <style>
