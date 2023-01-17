@@ -30,7 +30,7 @@ public class memberController {
 	}
 	
 	//회원가입 버튼을 눌렀을 때 실행되는 메소드
-	@PostMapping(value ="/new") //post방식으로 받을 때 사용할 것 입니다.
+	@PostMapping(value ="/new")  //post방식으로 받을 때 사용할 것 입니다.
 	public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
 		//@Valid : 유효성을 검증하려는 객체 앞에 붙여줍니다.
 		//BindingResult 는 유효성 검증 후에 결과를 담아주는 곳입니다. (유효성 검증 결과를 BindingResult에 넣어줍니다)
@@ -49,6 +49,19 @@ public class memberController {
 		}
 				
 		return "redirect:/"; //    '/'이거 경로로 redirect를 자동으로 해줄것 (/ 는 루트경로로써, 그냥 localhost로 보내버림.)
+	}
+	
+	//로그인 화면
+	@GetMapping(value = "/login")
+	public String loginMember() {
+		return "member/memberLoginForm";
+	}
+	
+	//로그인이 실패했을 때
+	@GetMapping(value = "/login/error")
+	public String loginError(Model model) {
+		model.addAttribute("loginErrorMsg","아이디 또는 비밀번호를 확인해주세요.");
+		return "member/memberLoginForm";
 	}
 	
 }

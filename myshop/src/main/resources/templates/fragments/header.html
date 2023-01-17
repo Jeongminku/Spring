@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -9,7 +10,11 @@
 	<div th:fragment="header">
 		<nav class="navbar navbar-expand-lg" style="background-color: #F15C9D">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/"><img src="../images/logo.png" width="40" alt="로고"></a>
+			<!-- 스프링에서 상대경로 쓰기가 애매한부분이 있음.
+			resources내에 있는 폴더들은 전부 하나의 폴더에 있다고 생각해도 될것같기도.
+			따라서 css,images,fragments, 등등이 전부 하나의 폴더에 있다고 가정(?)하고 사용하면 된다.
+			 -->
+				<a class="navbar-brand" href="/"><img src="/images/logo.png" width="40" alt="로고"></a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -18,22 +23,22 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 							<a class="nav-link" href="/admin/item/new">상품등록</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 							<a class="nav-link" href="/admin/items">상품관리</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/cart">장바구니</a>
+						<li class="nav-item" sec:authorize="isAuthenticated()">
+							<a class="nav-link" href="/cart" >장바구니</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="isAuthenticated()">
 							<a class="nav-link" href="/orders">구매이력</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="isAnonymous()">
 							<a class="nav-link" href="/members/login">로그인</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="isAuthenticated()">
 							<a class="nav-link" href="/members/logout">로그아웃</a>
 						</li>
 					</ul>
