@@ -16,7 +16,7 @@ import lombok.ToString;
 @Getter 				//Getter,Setter,ToString 롬복을 사용합니다.
 @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity{
 	
 	@Id
 	@Column(name="member_id") //컬럼의 이름을 따로 지정.

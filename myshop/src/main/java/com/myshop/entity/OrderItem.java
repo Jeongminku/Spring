@@ -18,7 +18,7 @@ import lombok.ToString;
 @Getter 				//Getter,Setter,ToString 롬복을 사용합니다.
 @Setter
 @ToString
-public class OrderItem {
+public class OrderItem extends BaseEntity{
 	@Id
 	@Column(name="order_item_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

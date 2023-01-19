@@ -48,8 +48,8 @@ class OrderTest {
 			item.setItemDetail("테스트 상품 상세 설명");
 			item.setItemSellStatus(ItemSellStatus.SELL); //열거형은 열거형에서 가져올것.
 			item.setStockNumber(100);
-			item.setRegTime(LocalDateTime.now()); //현재날짜와 시간을 저장하는법 : LocalDateTime.Now()
-			item.setUpdateTime(LocalDateTime.now());
+//			item.setRegTime(LocalDateTime.now()); //현재날짜와 시간을 저장하는법 : LocalDateTime.Now()
+//			item.setUpdateTime(LocalDateTime.now());
 
 			return item; 
 	}
