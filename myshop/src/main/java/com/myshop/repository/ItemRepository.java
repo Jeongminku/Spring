@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import com.myshop.constant.ItemSellStatus;
@@ -12,7 +13,8 @@ import com.myshop.entity.Item;
 
 //JpaRepository : 기본적인 CRUD 및 페이징 처리를 위한 메소드가 정의되어있습니다.
 						//JpaRepository<사용할 엔티티 클래스, 해당엔티티의 기본속성타입>
-public interface ItemRepository extends JpaRepository<Item, Long>{
+public interface ItemRepository extends JpaRepository<Item, Long>,
+	QuerydslPredicateExecutor<Item>, ItemRepositoryCustom	{
 	//select * from item where item_nm = ? 와 같은 표현입니다. ?의 값을 매개변수로 받을 것입니다.
 	List<Item> findByItemNm(String itemNm);
 	

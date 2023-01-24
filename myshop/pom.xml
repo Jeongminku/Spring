@@ -53,12 +53,10 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-			<version>5.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
-			<version>5.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -92,10 +90,8 @@
      		<artifactId>modelmapper</artifactId>
      		<version>3.1.0</version>
 		</dependency>
-
-
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -128,5 +124,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

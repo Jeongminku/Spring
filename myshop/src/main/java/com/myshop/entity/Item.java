@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import com.myshop.constant.ItemSellStatus;
+import com.myshop.dto.ItemFormDto;
 
 import lombok.*;
 
@@ -21,7 +22,7 @@ import lombok.*;
 @Getter 				//Getter,Setter,ToString 롬복을 사용합니다.
 @Setter
 @ToString
-public class Item {
+public class Item extends BaseEntity {
 	@Id 											//PK줌.
 	@Column(name="item_id") 						//컬럼명 설정
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,9 +49,17 @@ public class Item {
 	@Enumerated(EnumType.STRING)					//열거형 타입을 지정하면 SELL아니면 SOLD_OUT만 저장이 가능하다. (그렇게 enum에 지정해놨기 때문.)
 	private ItemSellStatus itemSellStatus;	//상품 판매상태
 	
+	public void updateItem(ItemFormDto itemFormDto) {
+		this.itemNm = itemFormDto.getItemNm();
+		this.price = itemFormDto.getPrice();
+		this.stockNumber = itemFormDto.getStockNumber();
+		this.itemDetail = itemFormDto.getItemDetail();
+		this.itemSellStatus = itemFormDto.getItemSellStatus();
+	}
 	
-//	private LocalDateTime regTime;			//등록 시간
+	
+	//private LocalDateTime regTime;			//등록 시간
 
 	
-//	private LocalDateTime updateTime;		//수정 시간
+	//private LocalDateTime updateTime;		//수정 시간
 }

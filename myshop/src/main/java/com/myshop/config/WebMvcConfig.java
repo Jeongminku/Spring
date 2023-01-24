@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 	
-	@Value("${uploadPath}")//application.properties 프로퍼티의 업로드 경로(uploadPath) 값을 가져옵니다.
+	@Value("${uploadPath}") //application.properties 프로퍼티의 업로드 경로(uploadPath) 값을 가져옵니다.
 	String uploadPath;
 
 	@Override
