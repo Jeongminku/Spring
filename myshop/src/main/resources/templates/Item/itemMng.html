@@ -54,14 +54,15 @@
 				    </tr>
   				</thead>
   				<tbody>
+  					<!-- items.getContent():조회된 데이터를 가져옵니다. (List로 변환) -->
 				    <tr th:each="item, status: ${items.getContent()}">
-				      <th th:text="${item.id}">1</th>
+				      <th th:text="${item.id}" scope="row"></th>
 				      <td>
 				      	<a th:href="'/admin/item/' + ${item.id}" th:text="${item.itemNm}"></a>
 				      </td>
 				      <!-- T는 스프링 내에 있는 클래스에 바로 접근 가능한 기능(?) -->
-				      <td th:text="${item.itemSellStatus == T(com.myshop.constant.ItemSellStatus).SELL ? '판매중' : '품절'"></td>
-				      <td th:text="${item.createBy}"></td>
+				      <td th:text="${item.itemSellStatus == T(com.myshop.constant.ItemSellStatus).SELL} ? '판매중' : '품절'"></td>
+				      <td th:text="${item.createdBy}"></td>
 				      <td th:text="${item.regTime}"></td>
 				    </tr>
 				</tbody>
@@ -69,7 +70,9 @@
 			<!-- 페이징 버튼    th:with="변수값을 정의" 할때 사용-->
 			<!-- start = (현재페이지 번호/보여줄 페이지의 수) + 1 	, = 페이지의 시작 번호 -->
 			<!-- end = start + (보여줄 페이지의 수 - 1) 		, = 페이지의 마지막(끝) 번호 -->
-			<!-- 타임리프에서 변수 출력하는 방법 [[${변수명}]] -->
+			item.number[[${items.number}]],
+			maxPage: [[${maxPage}]]
+			totalPages: [[${items.totalPages}]]
 			<nav 
 				th:with="start=${(items.number/maxPage)*maxPage+1}
 			,end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" 
@@ -77,11 +80,11 @@
 			  	<ul class="pagination d-flex justify-content-center">
 				    <li class="page-item" th:classappend="${items.first}?'disabled'">
 				    	<a class="page-link" 
-				    	th:onclick="'javascript:page('+ ${items.number - 1} + ')'">Previous</a>
+				    	th:onclick="'javascript:page('+ ${items.number - 1} + ')'">이전</a>
 				    </li>
 				    <li class="page-item" 
-				    	th:each="page: ${#numbers.sequence(start, end)}">
-				    	
+				    	th:each="page: ${#numbers.sequence(start, end)}"
+				    	th:classappend="${items.number eq page-1}?'active':''">				    	
 				    	<a class="page-link" th:inline="text" th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
 				    </li>
 				    <li class="page-item" th:classappend="${items.last}?'disabled'">
@@ -89,6 +92,8 @@
 				    </li>
   				</ul>
 			</nav>
+		
+
 		<!-- 검색창 -->
 			<div class="d-flex justify-content-center" th:object="${itemSearchDto}" style="height:40px;">
 			
@@ -111,7 +116,7 @@
 				<!-- 상품명, 등록자 선택 -->
 				<select th:field="*{searchBy}" class="form-select" style="width:auto;">
 				  <option value="itemNm">상품명</option>
-				  <option value="createBy">등록자</option>
+				  <option value="createdBy">등록자</option>
 				</select>
 				<!-- 검색창 -->
 				<input type="text" th:field="*{searchQuery}" class="form-control" placeholder="검색어 입력" style="width:auto;">

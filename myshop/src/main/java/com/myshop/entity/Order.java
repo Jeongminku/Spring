@@ -34,4 +34,35 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY) //OrderItem에 있는 order에 의해 관리가 됩니다.
 	private List<OrderItem> orderItems = new ArrayList<>();
+	
+	
+	public void addOrderItem(OrderItem orderItem) {
+		orderItems.add(orderItem); //양방향 참조 관계라면 add를 해준다음에
+		orderItem.setOrder(this); //양방향 참조 관계라면 orderItem객체에도 order객체를 세팅을 해줘야한대요(?)
+		//★선생님코멘트 :  양방향 참조관계일때는 orderItem객체에도 order객체를 세팅하여야합니다.
+		
+	}
+	//order객체를 생성해주는 createOrder 입니다.
+	public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+		Order order = new Order();
+		order.setMember(member); //멤버테이블과 관계가 있기때문에 멤버테이블도 넣어주어야. (@JoinColumn)
+		
+		for(OrderItem orderItem : orderItemList) { //orderItemList에는 주문한 리스트가 들어가있을것.
+			order.addOrderItem(orderItem);
+		}
+		
+		order.setOrderStatus(OrderStatus.ORDER);
+		order.setOrderDate(LocalDateTime.now());
+		return order;
+	}
+	
+	//총 주문금액
+	public int getTotalPrice() {
+		int totalPrice = 0;
+		for(OrderItem orderItem : orderItems) {
+			totalPrice += orderItem.getTotalPrice();
+		}
+		return totalPrice;
+	}
+	
  }
