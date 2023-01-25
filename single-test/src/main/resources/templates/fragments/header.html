@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- th:fragment="이름정하기" : 다른 페이지에 포함시킬 영역을 만들어 줍니다. -->
+	<div th:fragment="header">
+		<nav class="navbar navbar-expand-lg" style="background-color: #F15C9D">
+			<div class="container-fluid">
+			<!-- 스프링에서 상대경로 쓰기가 애매한부분이 있음.
+			resources내에 있는 폴더들은 전부 하나의 폴더에 있다고 생각해도 될것같기도.
+			따라서 css,images,fragments, 등등이 전부 하나의 폴더에 있다고 가정(?)하고 사용하면 된다.
+			 -->
+				<a class="navbar-brand" href="/"><img src="/images/logo.jpg" width="40" alt="로고"></a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="/admin/item/new">상품등록</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/admin/items">상품관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/cart" >장바구니</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/orders">구매이력</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/members/login">로그인</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/members/logout">로그아웃</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/members/new">회원가입</a>
+						</li>
+					</ul>
+					<form class="d-flex" role="search" th:action="@{/}" method="get">
+						<input name="searchQuery" class="form-control me-2" type="search"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>
