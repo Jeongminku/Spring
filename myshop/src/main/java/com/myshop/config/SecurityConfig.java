@@ -26,8 +26,8 @@ public class SecurityConfig {
 		//로그인에 대한 설정
 		http.formLogin()
 			.loginPage("/members/login") //로그인 페이지 url을 설정합니다.
-			.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지의 url 입니다.
 			.usernameParameter("email") //로그인 시 사용할 파라메터의 이름입니다.
+			.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지의 url 입니다.
 			.failureUrl("/members/login/error")//로그인 실패시 이동할 페이지의 url입니다.
 			.and() //로그인 이후에 로그아웃을 하기 위한 규칙 이라고 생각하기.
 			.logout()

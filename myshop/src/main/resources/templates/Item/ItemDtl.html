@@ -4,6 +4,8 @@
 	layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}"/> <!-- Ajax사용을 위해서 넣었음. 내가 데이터를 등록할 때, 수정할 때 해커들에 의해 하이재킹 당하지 않도록 함. -->
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/> <!-- Ajax사용을 위해서 넣었음. 내가 데이터를 등록할 때, 수정할 때 해커들에 의해 하이재킹 당하지 않도록 함. -->
 <title>Insert title here</title>
 
 <!-- 각 페이지에 스크립트가 작성될 위치를 지정합니다. -->
@@ -24,6 +26,52 @@
 			
 			$('#totalPrice').html(totalPrice + '원');
 		}
+		
+		function order() {
+			var token = $("meta[name='_csrf']").attr("content"); //_csrf에 대한 content값을 가져와서 token에 넣어줌.
+			var header = $("meta[name='_csrf_header']").attr("content"); //_csrf_header에 대한 content값을 가져와서 header에 넣어줌.
+			
+			var url = "/order"; 
+			
+			var paramData = { //자바스크립트(제이쿼리) 객체데이터 만드는 형식입니다.  객체 리터럴 방식(Object Literal)
+					itemId : $('#itemId').val(),
+					count : $('#count').val()
+					//이제는 컨트롤러에 넘겨주도록 하겠습니다. 그 전에 객체데이터를 문자열 형태로 바꿔주겠습니다.
+			};
+			
+			var param = JSON.stringify(paramData); //문자열 형태로 변경.
+			
+			$.ajax({
+				url: url, //요청이 전송될 URL 주소, 서버에서 요청할 주소
+				type: "POST", //http 요청 방식
+				contentType : "application/json", //json 형태로 리퀘스트 한다는 뜻
+				data: param,
+				beforeSend: function(xhr) { //xhr : XHR 헤더
+					 //데이터를 전송하기전에 헤더에 아까 만들어놓은 csrf 값을 설정해줍니다.    
+					xhr.setRequestHeader(header, token);
+				},
+				dataType: "json", //응답 데이터 형식 , 컨트롤러에서 Response 해주는 데이터의 형식(?)
+				cache: false, //캐시 사용 여부
+				success : function(result, status) { //요청에 따라 정상적으로 응답을 받았을때 콜백을 호출.
+					//alert("orderId:" + result);
+					location.href = "/"; //메인 홈페이지로 이동시킴.
+				},
+				error : function(jqXHR, status, error) { //응답을 받지 못하거나 데이터 형식을 지정을 하고 서버에서 응답을 했을 때와 다른 경우에 호출, status = 에러코드 등 써있음 ex) 401, 500 등등
+					if(jqXHR.status == '401' ) {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login'; //로그인 페이지로 이동시킴.
+					} else {
+						alert(jqXHR.responseText); //에러 메시지를 띄워줌.
+					}
+				}
+			})
+		}
+		/*주문버튼을 누르면 order함수가 실행되고 객체데이터를 만들어서 url "/order" 로 리퀘스트가 갈거고 서비스호출해서 실행이 다 완료가 되면, 
+		성공하면 success로 result에는 리턴해준 결과물이 찍히고 메인페이지로 이동시킴
+		실패하면 error로 갈거고 에러코드가 401이면 로그인해주세요 라고 찍히고 로그인홈페이지로 가겠지만, 다른 에러일 경우 alert를 보여주고 끝난다.
+		나중에 satus랑 error에 뭐가 찍히는지도 확인해보세요.
+		*/
+		
 	</script>
 </th:block>
 

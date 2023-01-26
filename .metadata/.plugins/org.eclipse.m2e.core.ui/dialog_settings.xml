@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\project\Spring\single-test"/>
 			<item value="D:\project\Spring_Teacher"/>
 			<item value="D:\project\Spring\myshop"/>
 			<item value="D:\project\Spring"/>
