@@ -50,8 +50,16 @@ public class OrderItem extends BaseEntity{
 		return orderItem;
 		
 	}
-	
+	//주문한 총 가격
 	public int getTotalPrice() {
+
 		return orderPrice*count;
 	}
+	
+	
+	//주문 취소의 경우 재고가 증가하는 메소드.
+	public void cancel() {
+		this.getItem().addStock(count);
+	}
+	
 }

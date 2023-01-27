@@ -8,4 +8,7 @@ import com.myshop.entity.ItemImg;
 
 public interface ItemImgRepository extends JpaRepository<ItemImg, Long> {
 	List<ItemImg> findByItemIdOrderByIdAsc(Long itemId);
+	
+	//상품의 대표 이미지를 찾습니다.
+	ItemImg findByItemIdAndRepimgYn(Long itemId, String repingYn);
 }

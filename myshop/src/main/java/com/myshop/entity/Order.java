@@ -65,4 +65,13 @@ public class Order {
 		return totalPrice;
 	}
 	
+	//주문 취소 (주문 스테이트를 바꿔주고 재고를증가시킨다.)
+	public void cancelOrder() {
+		this.orderStatus = OrderStatus.CANCEL; //주문 상태를 Cancel로 바꿔주고.
+		
+		for(OrderItem orderItem : orderItems) {
+			orderItem.cancel(); //cancel로 재고 증가.
+		}
+	}
+	
  }

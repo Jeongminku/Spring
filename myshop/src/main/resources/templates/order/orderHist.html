@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+		function cancelOrder(orderId) {
+			var token = $("meta[name='_csrf']").attr("content"); //_csrf에 대한 content값을 가져와서 token에 넣어줌.
+			var header = $("meta[name='_csrf_header']").attr("content"); //_csrf_header에 대한 content값을 가져와서 header에 넣어줌.
+			
+			var url = "/order/" + orderId + "/cancel"; 
+			
+			var paramData = { //자바스크립트(제이쿼리) 객체데이터 만드는 형식입니다.  객체 리터럴 방식(Object Literal)
+					orderId : orderId,
+			};
+			
+			var param = JSON.stringify(paramData); //문자열 형태로 변경.
+			
+			$.ajax({
+				url: url, //요청이 전송될 URL 주소, 서버에서 요청할 주소
+				type: "POST", //http 요청 방식
+				contentType : "application/json", //json 형태로 리퀘스트 한다는 뜻
+				data: param,
+				beforeSend: function(xhr) { //xhr : XHR 헤더
+					 //데이터를 전송하기전에 헤더에 아까 만들어놓은 csrf 값을 설정해줍니다.    
+					xhr.setRequestHeader(header, token);
+				},
+				dataType: "json", //응답 데이터 형식 , 컨트롤러에서 Response 해주는 데이터의 형식(?)
+				cache: false, //캐시 사용 여부
+				success : function(result, status) { //요청에 따라 정상적으로 응답을 받았을때 콜백을 호출.
+					alert("주문이 취소 되었습니다.");
+					location.href = '/orders/' + [[${page}]]; //orderController의 모델로 보냄 -> /orders/{page}가 되고 그걸 보여줌
+				},
+				error : function(jqXHR, status, error) { //응답을 받지 못하거나 데이터 형식을 지정을 하고 서버에서 응답을 했을 때와 다른 경우에 호출, status = 에러코드 등 써있음 ex) 401, 500 등등
+					if(jqXHR.status == '401' ) {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login'; //로그인 페이지로 이동시킴.
+					} else {
+						alert(jqXHR.responseText); //에러 메시지를 띄워줌.
+					}
+				}
+			});
+		}
+
+		function deleteOrder(orderId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+			
+			if(!deleteConf) return; //삭제하시겠습니까? 라는 물음에 취소버튼을 눌렀을때.
+			
+			var token = $("meta[name='_csrf']").attr("content"); //_csrf에 대한 content값을 가져와서 token에 넣어줌.
+			var header = $("meta[name='_csrf_header']").attr("content"); //_csrf_header에 대한 content값을 가져와서 header에 넣어줌.
+			
+			var url = "/order/" + orderId + "/delete"; 
+			
+			$.ajax({
+				url: url, //요청이 전송될 URL 주소, 서버에서 요청할 주소
+				type: "DELETE", //http 요청 방식
+				contentType : "application/json", //json 형태로 리퀘스트 한다는 뜻
+				beforeSend: function(xhr) { //xhr : XHR 헤더
+					 //데이터를 전송하기전에 헤더에 아까 만들어놓은 csrf 값을 설정해줍니다.    
+					xhr.setRequestHeader(header, token);
+				},
+				dataType: "json", //응답 데이터 형식 , 컨트롤러에서 Response 해주는 데이터의 형식(?)
+				cache: false, //캐시 사용 여부
+				success : function(result, status) { //요청에 따라 정상적으로 응답을 받았을때 콜백을 호출.
+					alert("주문이 삭제 되었습니다.");
+					location.href = '/orders/';
+				},
+				error : function(jqXHR, status, error) { //응답을 받지 못하거나 데이터 형식을 지정을 하고 서버에서 응답을 했을 때와 다른 경우에 호출, status = 에러코드 등 써있음 ex) 401, 500 등등
+					if(jqXHR.status == '401' ) {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login'; //로그인 페이지로 이동시킴.
+					} else {
+						alert(jqXHR.responseText); //에러 메시지를 띄워줌.
+					}
+				}
+			});
+		}
+		
+		
+    </script>
+
+</th:block>
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .content-mg{
+            margin-left:30%;
+            margin-right:30%;
+            margin-top:2%;
+            margin-bottom:100px;
+        }
+        .repImgDiv{
+            margin-right:15px;
+            margin-left:15px;
+            height:auto;
+        }
+        .repImg{
+            height:100px;
+            width:100px;
+        }
+        .card{
+            width:750px;
+            height:100%;
+            padding:30px;
+            margin-bottom:20px;
+        }
+        .fs18{
+            font-size:18px
+        }
+        .fs24{
+            font-size:24px
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content" class="content-mg">
+
+    <h2 class="mb-4">
+        구매 이력
+    </h2>
+
+    <div th:each="order : ${orders.getContent()}">
+
+        <div class="d-flex mb-3 align-self-center">
+            <h4 th:text="${order.orderDate} + ' 주문'"></h4>
+            <div class="ml-3">
+                <th:block th:if="${order.orderStatus == T(com.myshop.constant.OrderStatus).ORDER}">
+                    <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                </th:block>
+                <th:block th:unless="${order.orderStatus == T(com.myshop.constant.OrderStatus).ORDER}">
+                    <h4>(취소 완료) <button type="button" class="btn btn-primary" th:value="${order.orderId}" onclick="deleteOrder(this.value)">삭제하기</button></h4>
+                </th:block>
+            </div>
+        </div>
+        <div class="card d-flex">
+            <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
+                <div class="repImgDiv">
+                    <img th:src="${orderItem.imgUrl}" class = "rounded repImg" th:alt="${orderItem.itemNm}">
+                </div>
+                <div class="align-self-center w-75">
+                    <span th:text="${orderItem.itemNm}" class="fs24 font-weight-bold"></span>
+                    <div class="fs18 font-weight-light">
+                        <span th:text="${orderItem.orderPrice} +'원'"></span>
+                        <span th:text="${orderItem.count} +'개'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
+                <a th:href="@{'/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
+                    <span aria-hidden='true'>Previous</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${orders.number eq page-1}?'active':''">
+                <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+            </li>
+
+            <li class="page-item" th:classappend="${orders.number+1 ge orders.totalPages}?'disabled':''">
+                <a th:href="@{'/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
+                    <span aria-hidden='true'>Next</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+</html>
