@@ -80,8 +80,7 @@
 			item.number[[${items.number}]],
 			maxPage: [[${maxPage}]]
 			totalPages: [[${items.totalPages}]]
-			<nav 
-				th:with="start=${(items.number/maxPage)*maxPage+1}
+			<nav th:with="start=${(items.number/maxPage)*maxPage+1}
 			,end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" 
 			aria-label="Page navigation example">
 			  	<ul class="pagination d-flex justify-content-center">
