@@ -1,5 +1,5 @@
 package com.example.constant;
 
 public enum Role {
-	ADMIN, USER
+	ADMIN, VIEWER, STREAMER
 }

@@ -29,17 +29,17 @@ public class MemberFormDto {
 	
 	private Role role;
 	
-	@NotBlank(message="닉네임을 입력해주세요")
-	private String nickname;
+	//@NotBlank(message="닉네임을 입력해주세요")
+	//private String nickname;
 	
 	//프사 이미지 파일명
-	private String proImgName;
+	//private String proImgName;
 	
 	//프사 이미지 주소
-	private String proImgUrl;
+	//private String proImgUrl;
 	
 	//프사 원본 이미지명
-	private String proImgOri;
+	//private String proImgOri;
 	
 	
 	

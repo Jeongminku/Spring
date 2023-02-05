@@ -5,6 +5,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 <!-- 각 페이지에 스크립트가 작성될 위치 지정 -->
 <th:block layout:fragment="script">
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
@@ -15,7 +21,8 @@
 <script type="text/javascript" th:src="@{/js/jquery.slicknav.js}"></script>
 <script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
-
+<script type="text/javascript" th:src="@{/bootstrapt/js/bootstrap.min.js}"></script>
+    
 </th:block>
 
 <!-- 각 페이지에 CSS가 작성될 위치를 지정 -->
@@ -33,6 +40,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link th:href="@{/css/register.css}" rel="stylesheet">
+
 </th:block>
 </head>
 <body>
@@ -41,5 +49,52 @@
 	<div layout:fragment="content"></div>
 	
 	<div th:replace="fragments/footer::footer"></div>
+	<script th:inline="javascript">
+    var btnDelete = document.getElementById('clear');
+    var inputFocus = document.getElementById('inputFocus');
+    //- btnDelete.on('click', function(e) {
+    //-   e.preventDefault();
+    //-   inputFocus.classList.add('isFocus')
+    //- })
+    //- inputFocus.addEventListener('click', function() {
+    //-   this.classList.add('isFocus')
+    //- })
+    btnDelete.addEventListener('click', function(e)
+    {
+      e.preventDefault();
+      inputFocus.value = ''
+    })
+    document.addEventListener('click', function(e)
+    {
+      if (document.getElementById('first').contains(e.target))
+      {
+        inputFocus.classList.add('isFocus')
+      }
+      else
+      {
+        // Clicked outside the box
+        inputFocus.classList.remove('isFocus')
+      }
+    });
+    function readURL(input) {
+    	  if (input.files && input.files[0]) {
+    	    var reader = new FileReader();
+    	    reader.onload = function(e) {
+    	      document.getElementById('preview').src = e.target.result;
+    	    };
+    	    reader.readAsDataURL(input.files[0]);
+    	  } else {
+    	    document.getElementById('preview').src = "";
+    	  }
+    };
+    
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+      myInput.focus()
+    });
+    
+</script>
 </body>
 </html>

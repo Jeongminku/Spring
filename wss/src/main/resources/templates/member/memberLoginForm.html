@@ -5,6 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script th:inline="javascript">
+ 	 $(document).ready(function() {
+		var userInputId = getCookie("userInputId");
+		var setCookieYN = getCookie("setCookieYN");
+	
+		/* if (setCookieYN == 'Y') {
+			$("#id_save").prop("checked", true);
+			$("#email").val(userInputId);
+		} else {
+			$("#id_save").prop("checked", false);
+		} */
+	 
+		//로그인 버튼 클릭
+		$('#loginbtn').click(function() {
+			if ($("#id_save").is(":checked")) {
+				var userInputId = $("#email").val();
+				setCookie("userInputId", userInputId, 60);
+				setCookie("setCookieYN", "Y", 60);
+			} else {
+				deleteCookie("userInputId");
+				deleteCookie("setCookieYN");
+			}
+		});
+}); 
+</script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -26,23 +51,31 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3 style="color:black;">Login</h3>
-                        <form action="#">
+                        <form action="/members/login" method ="post">
                             <div class="input__item">
-                                <input type="text" placeholder="Email address">
-                                <span class="icon_mail"></span>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email 형식의 아이디를 입력해주세요" style="border: 2px solid black;">
+                            	<label th:for="email"></label>
+                                <span><i class="fa-regular fa-envelope"></i></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Password">
-                                <span class="icon_lock"></span>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password를 입력해주세요" style="border: 2px solid black;">
+                                <label th:for="password"></label>
+                                <span><i class="fa-solid fa-lock"></i></i></i></span>
                             </div>
-                            <button type="submit" class="site-btn">Login Now</button>
+                            <div>
+                            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+                            </div>
+                            <button type="submit" id="loginbtn" class="site-btn">Login Now</button>
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login__register">
                         <h3 style="color:black;">Don’t Have An Account Yet?</h3>
-                        <a href="/members/new" class="primary-btn">Register Now</a>
+                        
+                        <br>                        
+                        <!-- <a href="/members/new" class="primary-btn">Register Now</a> -->
+                        <button type="button" class="primary-btn" onclick="location.href='/members/new'" style="border:0">회원가입</button>
                     </div>
                 </div>
             </div>

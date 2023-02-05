@@ -1,13 +1,6 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -22,31 +15,30 @@ import lombok.*;
 @Setter
 @ToString
 public class Member {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="member_id")
-	private Long id;
+	private Long id; //자동생성PK
 	
-	private String name;
+	private String name; //닉네임
 	
-	@Column(unique = true)
-	private String email;
-	private String password;
-	private String address;
+	private String email; //아이디로 쓸 이메일
+	
+	private String password; // 비밀번호
 	
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role; // 역할군
 	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		member.setName(memberFormDto.getName());
 		member.setEmail(memberFormDto.getEmail());
-		member.setAddress(memberFormDto.getAddress());
+		
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
 		member.setPassword(password);
 		
-		member.setRole(Role.USER);
-		
+		member.setRole(Role.STREAMER);
 		return member;
 	}
 }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+    	<section class="normal-breadcrumb set-bg" style="background:#070720";>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <p>Welcome to the Search Streamer</p>
+                        <h2>SignUp</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	</section>
+    	<section class="login spad">
+        <div class="container">
+            <div class="sign-up-content">
+                <form action="members/new" method="post" th:object="${memberFormDto}">
+                    <div class="form-radio">               	
+                    
+                        <input type="radio" th:field="*{watcher}" class="form-control" name="memberRole" value="VIEWER" id="watcher" checked="checked">
+                        <label th:for="watcher">시청자</label>
+
+                        <input type="radio" th:field="*{streamer}" class="form-control" name="memberRole" value="STREAMER" id="streamer" />
+                        <label th:for="streamer">방송인</label>
+                    </div>
+
+                    <div class="form-textbox row">
+                        <label for="email_id">로그인ID</label>
+                        <input type="email" name="email_id" id="email_id" placeholder="abcd@email.com" />
+                    </div>
+                    
+                    <div class="form-textbox row">
+                        <label for="password1">비밀번호</label>
+                        <input type="password1" name="password1" id="password1" />
+                    </div>
+
+                    <div class="form-textbox row form-bottom" style="border-radius: 50px;">
+                        <div class="col" style="background-color: white; border-bottom-left-radius: 7px;" >
+                            <label for="profile">프로필 사진</label>
+                        </div>
+                        <div class="col-10" style="background-color: white; border-bottom-right-radius: 7px;">
+                            <div id="image_container">
+                                <img id="preview" style="width: 50%;"/>
+                            </div>
+                            <input type="file" onchange="readURL(this);" class="profile bg-white" id="profile" style="border: 0;"> 
+                            <!-- <input type="file" onchange="setThumbnail(event);" class="profile bg-white" id="profile" style="border: 0; width: 50%;"> -->
+                        </div>
+                    </div> 
+                    <br>
+                    
+                    <div class="form-textbox row">
+                        <input type="submit" name="submit" id="submit" class="submit" value="Create account" />
+                    </div>
+                </form>
+
+                <p class="loginhere">
+                    이미 회원이신가요 ?<a href="/members/login" class="loginhere-link" style="text-decoration:none"> Log in</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+	</div>
+	<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

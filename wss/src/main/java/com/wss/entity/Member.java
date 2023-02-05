@@ -32,16 +32,17 @@ public class Member {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	private String nickname;
+	//private String nickname;
+	
 	
 	//프사 이미지 파일명
-	private String proImgName;
+	//private String proImgName;
 	
 	//프사 이미지 주소
-	private String proImgUrl;
+	//private String proImgUrl;
 	
 	//프사 원본 이미지명
-	private String proImgOri;
+	//private String proImgOri;
 	
 	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
@@ -49,11 +50,12 @@ public class Member {
 		member.setEmail(memberFormDto.getEmail());
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
 		member.setPassword(password);
-		member.setRole(memberFormDto.getRole());
-		member.setNickname(memberFormDto.getNickname());
-		member.setProImgName(memberFormDto.getProImgName());
-		member.setProImgUrl(memberFormDto.getProImgUrl());
-		member.setProImgOri(memberFormDto.getProImgOri());
+		member.setRole(Role.STREAMER);
+		//member.setNickname(memberFormDto.getNickname());
+		//member.setRole(memberFormDto.getRole());
+		//member.setProImgName(memberFormDto.getProImgName());
+		//member.setProImgUrl(memberFormDto.getProImgUrl());
+		//member.setProImgOri(memberFormDto.getProImgOri());
 		
 		return member;
 	}
