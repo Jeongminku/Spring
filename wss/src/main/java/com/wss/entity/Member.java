@@ -32,17 +32,20 @@ public class Member {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	//private String nickname;
-	
+	//닉네임
+	private String nickname;
 	
 	//프사 이미지 파일명
-	//private String proImgName;
+	@Column(name ="img_name")
+	private String imgName;
 	
 	//프사 이미지 주소
-	//private String proImgUrl;
+	@Column(name ="img_url")
+	private String imgUrl;
 	
 	//프사 원본 이미지명
-	//private String proImgOri;
+	@Column(name ="img_ori")
+	private String imgOri;
 	
 	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
@@ -50,13 +53,15 @@ public class Member {
 		member.setEmail(memberFormDto.getEmail());
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
 		member.setPassword(password);
-		member.setRole(Role.STREAMER);
-		//member.setNickname(memberFormDto.getNickname());
-		//member.setRole(memberFormDto.getRole());
-		//member.setProImgName(memberFormDto.getProImgName());
-		//member.setProImgUrl(memberFormDto.getProImgUrl());
-		//member.setProImgOri(memberFormDto.getProImgOri());
+		member.setRole(memberFormDto.getRole());
+		member.setNickname(memberFormDto.getNickname());
 		
 		return member;
+	}
+	
+	public void updateImg(String imgName, String imgUrl, String imgOri) {
+		this.imgName = imgName;
+		this.imgUrl = imgUrl;
+		this.imgOri = imgOri;
 	}
 }

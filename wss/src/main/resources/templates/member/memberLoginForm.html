@@ -10,12 +10,12 @@
 		var userInputId = getCookie("userInputId");
 		var setCookieYN = getCookie("setCookieYN");
 	
-		/* if (setCookieYN == 'Y') {
+		if (setCookieYN == 'Y') {
 			$("#id_save").prop("checked", true);
 			$("#email").val(userInputId);
 		} else {
 			$("#id_save").prop("checked", false);
-		} */
+		} 
 	 
 		//로그인 버튼 클릭
 		$('#loginbtn').click(function() {
@@ -66,6 +66,7 @@
                             <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
                             </div>
                             <button type="submit" id="loginbtn" class="site-btn">Login Now</button>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">  
                         </form>
                     </div>
                 </div>

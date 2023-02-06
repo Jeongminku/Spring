@@ -40,14 +40,14 @@
         <div class="container">
             <div class="sign-up-content">
                 <form action="/members/new" method="post" th:object="${memberFormDto}">
-<!--                     <div class="form-radio">               	
+                     <div class="form-radio">               	
              	
-                        <input type="radio" name="member_level" value="viewer" id="viewer" checked="checked" />
+                        <input type="radio" name="role" value="VIEWER" id="viewer" checked="checked" />
                         <label for="viewer">시청자</label>
 
-                        <input type="radio" name="member_level" value="streamer" id="streamer" />
+                        <input type="radio" name="role" value="STREAMER" id="streamer" />
                         <label for="streamer">방송인</label>
-                    </div> -->
+                    </div>
 
                     <div class="form-textbox row">
                         <label th:for="email">이메일</label>
@@ -61,7 +61,7 @@
                         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">잘못된 password 입력</p>
                     </div>
 
-                    <!-- <div class="form-textbox row form-bottom">
+                    <div class="form-textbox row form-bottom">
                         <div class="col">
                             <label for="profile">프로필 사진</label>
                         </div>
@@ -69,9 +69,9 @@
                             <div id="image_container">
                                 <img id="preview" style="width: 50%;"/>
                             </div>
-                            <input type="file" onchange="readURL(this);" class="profile bg-white" id="profile" style="border: 0;"> 
+                            <input type="file" onchange="readURL(this);" class="profile bg-white" name ="profile_img" id="profile" style="border: 0;"> 
                         </div>
-                    </div> --> 
+                    </div> 
                     <br>
                     
                     <div class="form-textbox row signWrap" style="text-align:center;">

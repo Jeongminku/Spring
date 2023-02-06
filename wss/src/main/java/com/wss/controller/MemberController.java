@@ -63,9 +63,5 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-//	@ModelAttribute("roleTypes")
-//	public Role[] roleTypes() {
-//		return Role.values();
-//	}
 
 } 

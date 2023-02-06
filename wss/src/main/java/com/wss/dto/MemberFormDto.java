@@ -1,6 +1,8 @@
 package com.wss.dto;
 
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -24,28 +26,29 @@ public class MemberFormDto {
 	private String email;
 	
 	@NotEmpty(message = "비밀번호를 입력해주세요")
-	@Length(min=8, max=16, message = "비밀번호는 8자이상, 16자 이하로 해주세요")
+	//@Length(min=8, max=16, message = "비밀번호는 8자이상, 16자 이하로 해주세요")
 	private String password;
 	
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	//@NotBlank(message="닉네임을 입력해주세요")
-	//private String nickname;
+	@NotBlank(message="닉네임을 입력해주세요")
+	private String nickname;
 	
 	//프사 이미지 파일명
-	//private String proImgName;
+	private String imgName;
 	
 	//프사 이미지 주소
-	//private String proImgUrl;
+	private String imgUrl;
 	
 	//프사 원본 이미지명
-	//private String proImgOri;
+	private String imgOri;
 	
 	
 	
 	public static ModelMapper modelMapper = new ModelMapper();
 	
-	public static MemberFormDto of(Member member) {
-		return modelMapper.map(member, MemberFormDto.class);
+	public Member createMember() {
+		return modelMapper.map(this, Member.class);
 	}
 }

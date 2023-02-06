@@ -33,10 +33,6 @@ public class MemberService implements UserDetailsService {
 				.build();
 	}
 	
-	public Member saveMember(Member member) {
-		validateduplicateMember(member);
-		return memberRepository.save(member);
-	}
 
 	//이메일 중복체크 메소드
 	private void validateduplicateMember(Member member) {
@@ -46,5 +42,10 @@ public class MemberService implements UserDetailsService {
 		if(findMember != null) {
 			throw new IllegalStateException("이미 가입된 회원 입니다.");
 		}
+	}
+	
+	public Member saveMember(Member member) {
+		validateduplicateMember(member); //이메일 중복체크 먼저.
+		return memberRepository.save(member);
 	}
 }

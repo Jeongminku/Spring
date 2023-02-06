@@ -32,10 +32,10 @@ public class SecurityConfig {
 			.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
 			.logoutSuccessUrl("/");
 		
-		http.csrf().disable();
+//		http.csrf().disable();
 		
 		http.authorizeHttpRequests()
-		.mvcMatchers("/css/**","/js/**","/img/**").permitAll()
+		.mvcMatchers("/css/**","/js/**","/img/**", "/fonts/**").permitAll()
 		.mvcMatchers("/","/members/**","/item/**","/images/**").permitAll()
 		.anyRequest().authenticated();
 		

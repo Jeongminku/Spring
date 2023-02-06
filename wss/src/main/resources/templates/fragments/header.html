@@ -1,27 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<th:block layout:fragment="css">
-	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">   
-    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
-    <link th:href="@{/css/elegant-icons.css}" rel="stylesheet">
-    <link th:href="@{/css/plyr.css}" rel="stylesheet">
-    <link th:href="@{/css/nice-select.css}" rel="stylesheet">
-    <link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
-    <link th:href="@{/css/slicknav.min.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link th:href="@{/css/cardcss.css}" rel="stylesheet">
-    <link th:href="@{/css/search.css}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" /></th:block>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-</th:block>
 </head>
 
 <body>
-	<!-- th:fragment="이름" -->
 	<div th:fragment="header">
 		<nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
@@ -35,38 +20,12 @@
                                 <button class="clear" id="clear"></button>
                             </div>
                         <a href="/members/login" class="sign_icon"><i class="fa-solid fa-user" style="font-size: 40px; margin: 10px;" ></i></a>
-                        
-                                           
-                        </div>
-
-                    </div>
+                        <a class="nav-link" href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
+						 </div>
+					</div>                    
                 </form>
-                 
             </div>
         </div>
-        <!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-						  방송국 등록하기
-						</button>
-						
-						<!-- Modal -->
-						<div class="modal" tabindex="-1">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title">Modal title</h5>
-						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						      </div>
-						      <div class="modal-body">
-						        <p>Modal body text goes here.</p>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-primary">Save changes</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
     </nav>
 
 	</div>
