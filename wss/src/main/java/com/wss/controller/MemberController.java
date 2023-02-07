@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wss.constant.Role;
 import com.wss.dto.MemberFormDto;
 import com.wss.entity.Member;
+import com.wss.service.MemberImgService;
 import com.wss.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	private final MemberService memberService;
+	private final MemberImgService memberImgService;
 	private final PasswordEncoder passwordEncoder;
 	
 	//로그인 화면
@@ -47,15 +51,18 @@ public class MemberController {
 	
 	//회원가입 버튼 클릭.
 	@PostMapping(value="/new")
-	public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
+	public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, 
+			Model model, @RequestParam("profileImg") MultipartFile file) {
 		if(bindingResult.hasErrors()) {
 			return "member/memberForm";
 		}
 		
 		try {
 			Member member = Member.createMember(memberFormDto, passwordEncoder);
-			memberService.saveMember(member);
-		} catch (IllegalStateException e) {
+			Member member1 = memberService.saveMember(member);
+			memberImgService.savememberImg(member1, file);
+		} catch (Exception e) {
+			e.printStackTrace();
 			model.addAttribute("errorMessage", e.getMessage());
 			return "member/memberForm";
 		}
@@ -63,5 +70,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-
+	
+//	
+//	//방송 페이지 보기
+//	@GetMapping(value="/broad")
+//	public String broadManage() {
+//		return "broad/broadMng";
+//	}
 } 

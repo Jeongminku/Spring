@@ -44,6 +44,8 @@ public class MemberFormDto {
 	//프사 원본 이미지명
 	private String imgOri;
 	
+	//방송소개(스트리머 only)
+	private String broadInfo;
 	
 	
 	public static ModelMapper modelMapper = new ModelMapper();

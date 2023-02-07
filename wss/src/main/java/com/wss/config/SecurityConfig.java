@@ -36,7 +36,7 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests()
 		.mvcMatchers("/css/**","/js/**","/img/**", "/fonts/**").permitAll()
-		.mvcMatchers("/","/members/**","/item/**","/images/**").permitAll()
+		.mvcMatchers("/","/members/**","/item/**","/images/**","/favicon.ico").permitAll()
 		.anyRequest().authenticated();
 		
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());

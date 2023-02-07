@@ -47,6 +47,12 @@ public class Member {
 	@Column(name ="img_ori")
 	private String imgOri;
 	
+	//방송정보(스트리머 only)
+	@Column(name ="broad_info")
+	private String broadInfo;
+	
+	//방송카테고리(스트리머 only)
+	private String category;
 	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
@@ -55,6 +61,8 @@ public class Member {
 		member.setPassword(password);
 		member.setRole(memberFormDto.getRole());
 		member.setNickname(memberFormDto.getNickname());
+		
+		member.setBroadInfo(memberFormDto.getBroadInfo());
 		
 		return member;
 	}

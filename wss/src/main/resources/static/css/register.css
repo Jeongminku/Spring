@@ -376,7 +376,12 @@ input:-webkit-autofill {
   .form-textbox label {
     left: 15px; }
 
-  input {
+input {
     padding: 16px 30px 16px 100px; } }
 
-/*# sourceMappingURL=style.css.map */
+
+
+.fieldError {
+	color: #bd2130;
+        }
+

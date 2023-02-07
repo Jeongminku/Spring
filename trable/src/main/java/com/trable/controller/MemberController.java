@@ -59,7 +59,7 @@ public class MemberController {
 					model.addAttribute("errorMessage", e.getMessage());
 					return "member/signuppage";
 				}
-			return "/";
+			return "main";
 
 		}
 		

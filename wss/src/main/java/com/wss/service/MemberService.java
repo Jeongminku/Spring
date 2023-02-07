@@ -48,4 +48,6 @@ public class MemberService implements UserDetailsService {
 		validateduplicateMember(member); //이메일 중복체크 먼저.
 		return memberRepository.save(member);
 	}
+	
+
 }
