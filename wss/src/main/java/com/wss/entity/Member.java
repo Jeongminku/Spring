@@ -61,8 +61,8 @@ public class Member {
 		member.setPassword(password);
 		member.setRole(memberFormDto.getRole());
 		member.setNickname(memberFormDto.getNickname());
-		
 		member.setBroadInfo(memberFormDto.getBroadInfo());
+		member.setCategory(memberFormDto.getCategory());
 		
 		return member;
 	}

@@ -21,6 +21,8 @@ import lombok.Setter;
 //회원가입시 넘겨받을 데이터
 public class MemberFormDto {
 	
+	private String id;
+	
 	@NotBlank(message = "아이디를 입력해주세요.")
 	@Email(message ="이메일 형식으로 입력해주세요.")
 	private String email;
@@ -47,7 +49,10 @@ public class MemberFormDto {
 	//방송소개(스트리머 only)
 	private String broadInfo;
 	
+	//방송 카테고리(스트리머 only)
+	private String category;
 	
+	//매핑용.
 	public static ModelMapper modelMapper = new ModelMapper();
 	
 	public Member createMember() {

@@ -64,7 +64,7 @@
 							
 							
 							<div class="row">
-							<th:block th:each="broad : ${broads}">
+							<th:block th:each="member : ${members}">
 							
 							
 														 
@@ -76,22 +76,22 @@
 												<div class="card">
 													<div class="card-body text-center">
 														<p>
-															<img class="img-fluid" th:src="${broad.imgUrl}"
+															<img class="img-fluid" th:src="${member.imgUrl}"
 																alt="card image">
 														</p>
-														<div class="ep">저스트 채팅</div>
-														<h4 class="card-title">[[${broad.nickname}]]</h4>
+														<div class="ep">[[${broad.category}]]</div>
+														<h4 class="card-title">[[${member.nickname}]]</h4>
 													</div>
 												</div>
 											</div>
 											<div class="backside">
 												<div class="card">
 													<div class="card-body text-center mt-4">
-														<h4 class="card-title">[[${broad.nickname}]]</h4>
+														<h4 class="card-title">[[${member.nickname}]]</h4>
 														<a href="#"><p>
-																<img class=" img-fluid" th:src="${broad.imgUrl}"
+																<img class=" img-fluid" th:src="${member.imgUrl}"
 																	alt="card image">
-															</p></a> <a href="#"><p class="card-text">[[${broad.broadInfo}]]</p></a>
+															</p></a> <a href="/"><p class="card-text">[[${broad.broadInfo}]]</p></a>
 													</div>
 												</div>
 											</div>
