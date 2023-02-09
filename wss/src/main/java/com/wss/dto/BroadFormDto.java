@@ -27,4 +27,15 @@ public class BroadFormDto {
 	public Broad createBroad() {
 		return modelMapper.map(this, Broad.class);
 	}
+	
+	//엔티티 객체를 -> Dto객체로 변경
+	public static BroadFormDto of(Broad broad) {
+		Object tmpSource = broad;
+        if(broad == null){
+            tmpSource = new Object();
+        }
+
+        
+		return modelMapper.map(tmpSource, BroadFormDto.class);
+	}
 }

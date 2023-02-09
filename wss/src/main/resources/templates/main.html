@@ -66,9 +66,6 @@
 							<div class="row">
 							<th:block th:each="member : ${members}">
 							
-							
-														 
-							 
 								<div class="col-xl-3 col-lg-4 col-md-6">
 									<div class="image-flip">
 										<div class="mainflip flip-0">
@@ -79,7 +76,8 @@
 															<img class="img-fluid" th:src="${member.imgUrl}"
 																alt="card image">
 														</p>
-														<div class="ep">[[${broad.category}]]</div>
+														<!-- <div class="ep">[[${member.category}]]</div> -->
+														<div class="ep">[[${member.category}]]</div>
 														<h4 class="card-title">[[${member.nickname}]]</h4>
 													</div>
 												</div>
@@ -88,10 +86,10 @@
 												<div class="card">
 													<div class="card-body text-center mt-4">
 														<h4 class="card-title">[[${member.nickname}]]</h4>
-														<a href="#"><p>
+														<a th:href="'view/' + ${member.id}"><p>
 																<img class=" img-fluid" th:src="${member.imgUrl}"
 																	alt="card image">
-															</p></a> <a href="/"><p class="card-text">[[${broad.broadInfo}]]</p></a>
+															</p></a> <a th:href="'view/'+${member.id}"><p class="card-text">[[${member.broadFormDto.broadInfo}]]</p></a>
 													</div>
 												</div>
 											</div>

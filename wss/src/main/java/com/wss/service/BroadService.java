@@ -23,10 +23,10 @@ public class BroadService {
 	private final MemberRepository memberRepository;
 	private	final BroadRepository broadRepository;
 
-	public Broad getBroad(Member id) {
-		Broad broad = broadRepository.findByMemberId(id);   //컨트롤러에서 getBroad()사용시 List<Member>를 broad라는 이름으로 다 가져옴.
-		return broad;
-	}
+//	public Broad getBroad(Long memberid) {
+//		Broad broad = broadRepository.findByMemberId(memberid); //여기야
+//		return broad;
+//	}
 	
 	public Broad saveMember(Broad broad) {
 		return broadRepository.save(broad);

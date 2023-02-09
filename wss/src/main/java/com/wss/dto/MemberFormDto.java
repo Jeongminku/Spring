@@ -1,6 +1,9 @@
 package com.wss.dto;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
@@ -11,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
 import com.wss.constant.Role;
+import com.wss.entity.Broad;
 import com.wss.entity.Member;
 
 import lombok.Getter;
@@ -21,7 +25,7 @@ import lombok.Setter;
 //회원가입시 넘겨받을 데이터
 public class MemberFormDto {
 	
-	private String id;
+	private Long id;
 	
 	@NotBlank(message = "아이디를 입력해주세요.")
 	@Email(message ="이메일 형식으로 입력해주세요.")

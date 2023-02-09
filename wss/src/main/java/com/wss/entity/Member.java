@@ -54,6 +54,9 @@ public class Member {
 	//방송카테고리(스트리머 only)
 	private String category;
 	
+	
+
+//주석처리함
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		member.setEmail(memberFormDto.getEmail());
@@ -66,7 +69,8 @@ public class Member {
 		
 		return member;
 	}
-	
+
+
 	public void updateImg(String imgName, String imgUrl, String imgOri) {
 		this.imgName = imgName;
 		this.imgUrl = imgUrl;

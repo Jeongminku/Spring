@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout2}">
 <head>
@@ -9,12 +10,14 @@
 
 </head>
 <body>
+<div layout:fragment="content">
 	<section class="anime-details spad">
         <div class="container">
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="img/trending/jururu.png">
+                        <div class="anime__details__pic set-bg">
+                        	<img class="img-fluid" th:src="${member.imgUrl}" alt="streamer image">
                             <div class="view"><i class="fa-solid fa-heart"></i> 9141</div>
                         </div>
                     </div>
@@ -22,26 +25,20 @@
                         <div class="anime__details__text">
                             <div class="anime__details__title">
                                 <div class="anime__details__btn">
-                                    <h3>주르르</h3>                            
+                                    <h3>[[${member.nickname}]]</h3>                            
                                     <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
                                     <a href="#" class="watch-btn"><span>Watch Now</span></a>
                                 </div>
                             </div>
                         <div>
-                            <p>일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔 한줄에 47글자                          </p>
+                            <p>[[${member.broadInfo}]]</p>
                         </div>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-12" style="margin-bottom : 20px;">
                                         <div class="anime__review__item__text">
-                                            <h6>마젠타 <span>1 Hour ago</span> </h6>
+                                            <h6>[[${member.nickname}]]의 한마디</h6>
                                             <p>일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-12" style="margin-bottom : 20px;">
-                                        <div class="anime__review__item__text">
-                                            <h6>마젠타 <span>2 Hour ago</span></h6>
-                                            <p>아저씨왜안돼요한번만더생각해요그저난모를뿐이죠이게그렇게잘못인가요</p>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +54,7 @@
                             </div>
                             <form action="#">
                                 <textarea placeholder="Your Comment"></textarea>
-                                <button class="comment_btn" type="submit"><i class="fa fa-location-arrow"></i>Comment</button>
+                                <button  class="comment_btn" type="submit" sec:authorize="isAuthenticated()" ><i class="fa fa-location-arrow"></i>Comment</button>
                             </form>
                         </div>
                         <div class="anime__details__review">
@@ -70,7 +67,7 @@
                                     <p>일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔</p>
                                 </div>
                                 <div class="FeedComment_wrap">
-                                    <button class="FeedCommentBtn" type="button"><i class="fa-solid fa-comment"></i></button>
+                                    <button class="FeedCommentBtn" type="button" ><i class="fa-solid fa-comment"></i></button>
                                 </div>
                                 <hr>
                             </div> 
@@ -111,6 +108,7 @@
             </div>
     	</div>
     </section>
+	</div>    	
 		<script
 			src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 		<script>

@@ -172,7 +172,7 @@ color: black;
 					<div class="row head2">
 						<div class="col-md-1"></div>
 						<div class="col-md-2"><img alt="heart" src="/images/flatheart.png" width="75px"></div>
-						<div class="col-md-2"><span> heart number</span><br><h1>[[${heart}]]</h1> </div>
+						<div class="col-md-2"><span>user heart</span><br><h1>[[${heart}]]</h1> </div>
 						<div class="col-md-1"></div>
 						<div class="col-md-2"><img alt="trophy" src="/images/trophy.png" width="75px">	</div>
 						<div class="col-md-2"> <span>user grade</span> <br> <h1> [[${member.usergrade}]] </h1></div>
@@ -185,7 +185,7 @@ color: black;
 					<div class="row">
 						<th:block th:each = "post : ${posts}">
 						<div class="col-md-4 usercontent">
-							<img class="usercontent" th:alt="${post.imgname}" th:src="${post.imgurl}">
+							<a th:href="'view/'+${post.id}"><img class="usercontent" th:alt="${post.imgname}" th:src="${post.imgurl}"></a> 
 							<div class="contentheart">
 							<img alt="heart" src="/images/flatheart.png" width="30px">						
 							<span> [[${post.heart}]] </span>

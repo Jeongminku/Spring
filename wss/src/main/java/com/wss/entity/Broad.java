@@ -2,10 +2,13 @@ package com.wss.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,11 +39,9 @@ public class Broad {
 	//방송카테고리(스트리머 only)
 	private String category;
 
-	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="member_id")
-	private Member memberId;
-	
+	private Member member;	
 	
 	
 	public static Broad createBroad(BroadFormDto broadFormDto, Member member) {
@@ -50,7 +51,7 @@ public class Broad {
 		broad.setCategory(broadFormDto.getCategory());
 
 		//F키 값을 먼저 넣어줘야함.
-		broad.setMemberId(member);
+		broad.setMember(member);
 		
 		return broad;
 		

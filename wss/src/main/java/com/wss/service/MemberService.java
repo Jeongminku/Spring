@@ -1,6 +1,9 @@
 package com.wss.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wss.constant.Role;
+import com.wss.dto.BroadFormDto;
+import com.wss.dto.MemberFormDto;
+import com.wss.dto.MemberStreamerDto;
+import com.wss.entity.Broad;
 import com.wss.entity.Member;
+import com.wss.repository.BroadRepository;
 import com.wss.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
+	private final BroadRepository broadRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -48,10 +57,22 @@ public class MemberService implements UserDetailsService {
 	}
 	
 
-	public List<Member> getMemberBroad(Role role) {
+	public List<MemberStreamerDto> getMemberBroad(Role role) {
 //		return memberRepository.findByRole(role);
-		List<Member> broad = memberRepository.findByRole(role);   //컨트롤러에서 getBroad()사용시 List<Member>를 broad라는 이름으로 다 가져옴.
-		return broad;
+		List<Member> MemberList = memberRepository.findByRole(role);   //컨트롤러에서 getBroad()사용시 List<Member>를 broad라는 이름으로 다 가져옴.
+		List<MemberStreamerDto> memberStreamerDtoList = new ArrayList<>();
+		
+		for(Member member : MemberList) {
+			Broad broad= broadRepository.findByMemberId(member.getId());
+			BroadFormDto broadFormDto = BroadFormDto.of(broad); //broad엔티티를 BroadFormDto로 변경
+			
+			MemberStreamerDto memberStreamerDto = new MemberStreamerDto(member);
+			memberStreamerDto.setBroadFormDto(broadFormDto);
+			
+			memberStreamerDtoList.add(memberStreamerDto);
+		}
+		
+		return memberStreamerDtoList;
 	}
 	
 	
@@ -60,5 +81,8 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.save(member);
 	}
 	
-
+	public Member getMember(Long memberId) {
+		return memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+	}
+	
 }
