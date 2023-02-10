@@ -57,6 +57,15 @@ public class MemberService implements UserDetailsService {
 	}
 	
 
+	
+	
+	public Member saveMember(Member member) {
+		validateduplicateMember(member); //이메일 중복체크 먼저.
+		return memberRepository.save(member);
+	}
+	
+	
+	
 	public List<MemberStreamerDto> getMemberBroad(Role role) {
 //		return memberRepository.findByRole(role);
 		List<Member> MemberList = memberRepository.findByRole(role);   //컨트롤러에서 getBroad()사용시 List<Member>를 broad라는 이름으로 다 가져옴.
@@ -76,13 +85,11 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	
-	public Member saveMember(Member member) {
-		validateduplicateMember(member); //이메일 중복체크 먼저.
-		return memberRepository.save(member);
-	}
-	
 	public Member getMember(Long memberId) {
 		return memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
 	}
 	
+	public Member findByEmail(String email) {
+		return memberRepository.findByEmail(email);
+	}
 }

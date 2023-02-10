@@ -2,6 +2,8 @@ package com.wss.service;
 
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -22,14 +24,13 @@ public class BroadService {
 	
 	private final MemberRepository memberRepository;
 	private	final BroadRepository broadRepository;
-
-//	public Broad getBroad(Long memberid) {
-//		Broad broad = broadRepository.findByMemberId(memberid); //여기야
-//		return broad;
-//	}
 	
 	public Broad saveMember(Broad broad) {
 		return broadRepository.save(broad);
+	}
+	
+	public Broad findById(Long id) {
+		return broadRepository.findByMemberId(id);
 	}
 	
 
