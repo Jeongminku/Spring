@@ -12,6 +12,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	
 	List<Member> findByRole(Role role);
 	
-	
-	
 }

@@ -52,6 +52,11 @@ public class MainController {
 		model.addAttribute("members", memberStreamerDtoList);
 		
 		
+		String email =  SecurityContextHolder.getContext().getAuthentication().getName();
+		Member member = memberService.findByEmail(email);
+		model.addAttribute("setmember", member);
+		System.out.println("셋멤버 시스아웃: " + member);
+		
 		return "main";
 	}
 	
@@ -61,8 +66,12 @@ public class MainController {
 	@GetMapping(value = {"/view", "/view/{id}"})
 	public String dtlpage(@PathVariable("id") Long memberid, Model model) {
 		
-		//String id = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함 
+		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함 
 		try {
+			
+			Member setmember = memberService.findByEmail(email);
+			model.addAttribute("setmember", setmember);
+			
 			
 			Member member = memberService.getMember(memberid); //스트리머의 아이디를 통해서 스트리머 member객체를 가져옴.
 			model.addAttribute("member", member);
@@ -71,7 +80,6 @@ public class MainController {
 			List <Feed> feedList = feedService.Feedjoinbroad();
 			model.addAttribute("feed", feedList);
 			
-			System.out.println("피피피피피피피피 : " + feedList);
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage", "게시물 / 사용자를 불러올 수 없습니다.");
 			return "main";

@@ -12,16 +12,20 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="/"><img src="/images/ju_taime.png" style="width: 150px;" alt="logo"></a>
             <div class="s128">
+                <form >
+                </form>
                 <form>
                     <div class="inner-form">
                         <div class="row">
                             <div class="input-field first" id="first">
                                 <input class="input" id="inputFocus" type="text" placeholder="Keyword" />
-                                <button class="clear" id="clear"></button>
+                        		
+                        		<a href="/members/login" class="sign_icon" sec:authorize="isAnonymous()"><i class="fa-solid fa-user" style="font-size: 40px; margin: 10px;" ></i></a>
                             </div>
-                        <a href="/members/login" class="sign_icon"><i class="fa-solid fa-user" style="font-size: 40px; margin: 10px;" ></i></a>
+                            
+                        <a th:href="'setting/'+${setmember.id}" class="setting_icon" sec:authorize="isAuthenticated()"><i class="fa-solid fa-address-card" style="font-size: 40px; margin: 10px;"></i></a>
                         <a class="nav-link" href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
-						 </div>
+                    	</div>
 					</div>                    
                 </form>
             </div>
