@@ -75,10 +75,19 @@ public class MainController {
 			
 			Member member = memberService.getMember(memberid); //스트리머의 아이디를 통해서 스트리머 member객체를 가져옴.
 			model.addAttribute("member", member);
-			//Broad broad = broadService.findById(member.getId());
+			Broad broad = broadService.findById(member.getId());
 			//model.addAttribute("broad", broad);
 			List <Feed> feedList = feedService.Feedjoinbroad();
+			List <Feed> listtest = new ArrayList<>();
+			for(int i=0; i<feedList.size(); i++) {
+				if(feedList.get(i).getBroad().getId() == broad.getId()) {
+					listtest.add(feedList.get(i));
+				}
+			}
+			
 			model.addAttribute("feed", feedList);
+
+			model.addAttribute("feed1", listtest);
 			
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage", "게시물 / 사용자를 불러올 수 없습니다.");
@@ -88,13 +97,13 @@ public class MainController {
 	}
 
 	@PostMapping(value = {"/view", "/view/{id}"})	
-	public String feed(@RequestParam("feedcon") String feed, Model model) {
+	public String feed(@RequestParam("feedcon") String feed, Model model, @PathVariable("id") Long broadId) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
 
 		
 		try {
 			Member member = memberService.findByEmail(email);
-			Broad broad = broadService.findById(member.getId());
+			Broad broad = broadService.findById(broadId);
 			Feed feed1 = Feed.createFeed(feed, member, broad);
 			feedService.saveFeed(feed1);
 			
@@ -103,7 +112,7 @@ public class MainController {
 			return "member/memberForm";
 		}
 		
-		return "main";
+		return "redirect:/";
 	}
 	
 }

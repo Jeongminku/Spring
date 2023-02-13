@@ -46,7 +46,23 @@
 	    		$(".category").css('display','block');
 	    	}
 	    }
-
+		
+	    function valid(){
+	    	
+	    	if($('[name=nickname]').val()==''){
+	    		$('[name=nickname]').focus();
+	    		alert('닉네임을 작성해주세요.');
+	    		return false;
+	    	}
+	    	
+	    	if($('#password').val()==''){
+	    		$('#password').focus();
+	    		alert('패스워드 작성해주세요.');
+	    		return false;
+	    	}
+	    	
+	    	$('#frm').submit()  //form태그의 아이디 를 버튼에서 서브밋함.
+	    }
 		    
 	</script>
 </th:block>
@@ -62,8 +78,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <p>Welcome to the Search Streamer</p>
-                        <h2>SignUp</h2>
+                        <h2>회원정보수정</h2>
                     </div>
                 </div>
             </div>
@@ -72,43 +87,28 @@
     	<section class="login spad">
         <div class="container">
             <div class="sign-up-content">
-                <form action="/members/new" method="post" th:object="${memberFormDto}" enctype="multipart/form-data">
+                <form th:action="'/'+'members/setting/'+${setmember.id}" id="frm" method="post" th:object="${memberFormDto}" enctype="multipart/form-data">
                      <div class="signup">
-	                    <div class="form-radio category">               
-	                        <input type="radio" name="category" value="저스트 채팅" id="justchat" checked="checked" onclick="broadInfoEvent()" />
-	                        <label for="justchat">저스트채팅</label>
-	
-	                        <input type="radio" name="category" value="게임 방송" id="game" onclick="broadInfoEvent()" />
-	                        <label for="game">게임방송</label>
-
-	                        <input type="radio" name="category" value="V-tuber" id="vtuber" onclick="broadInfoEvent()" />
-	                        <label for="vtuber">V-tuber</label>
-	                    </div>
 	
 						<div class="form-textbox row">
 	                        <label th:for="nickname">닉네임</label>
-	                        <input type="text" th:field="*{nickname}" class="form-control" placeholder="닉네임 입력" style="padding-left: 100px;" />
+	                        <input type="text" id="nickname" name="nickname" class="form-control" style="padding-left: 100px;" th:value="${setmember.nickname}" />
 	                        <p th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="fieldError"></p>
 	                    </div>
 	
 	                    <div class="form-textbox row">
 	                        <label th:for="email">이메일</label>
-	                        <input type="email" th:field="*{email}" class="form-control" placeholder="abcd@email.com" style="padding-left: 100px;" />
+	                        <input type="email" name="email" id="email" class="form-control" placeholder="abcd@email.com" style="padding-left: 100px;" th:value="${setmember.email}" readonly />
 	                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">잘못된 email 입력</p>
 	                    </div>
 	                    
 	                    <div class="form-textbox row">
 	                        <label for="password">비밀번호</label>
-	                        <input type="password" th:field="*{password}" class="form-control" style="padding-left: 100px; border-radius:inherit" />
+	                        <input type="password" id="password" name="password" class="form-control" style="padding-left: 100px; border-radius:inherit"/>
 	                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">잘못된 password 입력</p>
 	                    </div>
 	
-						<div class="form-textbox row broadInfo">
-	                        <label for="broadInfo" >방송소개</label>
-	                        <textarea class="form-control" th:field="*{broadInfo}" placeholder = "방송소개적어주세요" style="padding-left: 100px; border-radius:inherit; width"></textarea>
-	                    </div>
-	                    
-	                    <div class="form-textbox row form-bottom">
+						<div class="form-textbox row form-bottom">
 	                        <div class="col">
 	                            <label for="profile">프로필 사진</label>
 	                        </div>
@@ -116,13 +116,13 @@
 	                            <div id="image_container">
 	                                <img id="preview" style="width: 50%;"/>
 	                            </div>
-	                            <input type="file" onchange="readURL(this);" class="profile bg-white" name ="profileImg" id="profileImg" style="border: 0;"> 
+	                            <input type="file" onchange="readURL(this);" class="profile bg-white" name ="profileImg" id="profileImg" style="border: 0;">
 	                        </div>
                     </div> 
                     <br>
                     
                     <div class="form-textbox row signWrap" style="text-align:center;">
-                        <button type="submit" class="submitSign">회원가입</button>
+                        <button onclick="valid()" type="button" class="submitSign">수정</button>
                         <button type="button" onclick="location.href='/'" class="submitSign">가입취소</button>
                     </div>
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">         

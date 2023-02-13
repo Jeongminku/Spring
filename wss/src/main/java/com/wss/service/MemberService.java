@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wss.constant.Role;
 import com.wss.dto.BroadFormDto;
@@ -94,4 +96,13 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	
+	
+	public Long updateMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) throws Exception {
+		Member member = memberRepository.findById(memberFormDto.getId())
+								.orElseThrow(EntityNotFoundException::new);
+		
+		member.updateMember(memberFormDto, passwordEncoder);
+		return member.getId();
+	
+	}
 }

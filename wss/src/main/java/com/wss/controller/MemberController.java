@@ -1,5 +1,7 @@
 package com.wss.controller;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
@@ -19,8 +21,10 @@ import com.wss.constant.Role;
 import com.wss.dto.BroadFormDto;
 import com.wss.dto.MemberFormDto;
 import com.wss.entity.Broad;
+import com.wss.entity.Feed;
 import com.wss.entity.Member;
 import com.wss.service.BroadService;
+import com.wss.service.FeedService;
 import com.wss.service.MemberImgService;
 import com.wss.service.MemberService;
 
@@ -34,7 +38,7 @@ public class MemberController {
 	private final MemberImgService memberImgService;
 	private final PasswordEncoder passwordEncoder;
 	private final BroadService broadService;
-	
+	private final FeedService feedService;
 	
 	//로그인 화면
 	@GetMapping(value="/login")
@@ -85,15 +89,46 @@ public class MemberController {
 	
 	//멤버 수정 페이지 보기
 	@GetMapping(value = {"/setting", "/setting/{id}"})
-	public String memberDtl(@PathVariable("id") Long memberId) {
+	public String memberDtl(@PathVariable("id") Long memberId, Model model) {
+
+		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함 
+		try {
+			//세팅폼 자체에 memberFormDto 가 있으므로 기본 설정을 해줘야 접근이 가능하다.
+			MemberFormDto memberFormDto = new MemberFormDto();
+			model.addAttribute(memberFormDto);
+			
+			Member member = memberService.findByEmail(email);
+			Member member1 = memberService.getMember(member.getId());
+			model.addAttribute("setmember",member1);
+			System.out.println(member1.getNickname());
+		} catch (EntityNotFoundException e) {
+			
+		}
 		
-		return "redirect:/";
+		return "member/memberSettingForm";
 	}
 	
-//	
-//	//방송 페이지 보기
-//	@GetMapping(value="/broad")
-//	public String broadManage() {
-//		return "broad/broadMng";
-//	}
+	//멤버 닉네임,패스워드,이미지업로드를 수정
+		@PostMapping(value = {"/setting", "/setting/{id}"})
+		public String memberUpdate(@Valid MemberFormDto memberFormDto, BroadFormDto broadFormDto, BindingResult bindingResult, 
+				Model model, @RequestParam("profileImg") MultipartFile file) {
+			
+			if(bindingResult.hasErrors()) {
+				return "redirect:/";
+			}
+			
+			try {
+				Long id = memberService.updateMember(memberFormDto, passwordEncoder);
+				Member member = memberService.getMember(id);
+				memberImgService.updateMemberImg(member, file);
+
+			}catch (Exception e) {
+				model.addAttribute("errorMessage", "멤버 수정 중 에러가 발생하였습니다.");
+				return "redirect:/";
+			}
+			return "redirect:/";
+		}	
+	
+	
+	
 } 

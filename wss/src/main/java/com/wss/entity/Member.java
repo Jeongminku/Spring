@@ -2,6 +2,7 @@ package com.wss.entity;
 
 import javax.persistence.*;
 
+import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wss.constant.Role;
@@ -75,5 +76,12 @@ public class Member {
 		this.imgName = imgName;
 		this.imgUrl = imgUrl;
 		this.imgOri = imgOri;
+	}
+	
+	public void updateMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+		this.nickname = memberFormDto.getNickname();
+		String password = passwordEncoder.encode(memberFormDto.getPassword());
+		this.password = password;
+		
 	}
 }

@@ -12,4 +12,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	
 	List<Member> findByRole(Role role);
 	
+	Member findByImgName(String imgName);
 }

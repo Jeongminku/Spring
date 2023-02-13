@@ -4,14 +4,17 @@ package com.wss.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wss.constant.Role;
 import com.wss.entity.Broad;
@@ -62,4 +65,12 @@ public class MemberFormDto {
 	public Member createMember() {
 		return modelMapper.map(this, Member.class);
 	}
+	
+	
+//	//업데이트
+//	public void updateMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+//		this.nickname = memberFormDto.getNickname();
+//		
+//		this.password = memberFormDto.getPassword();	
+//	}
 }
