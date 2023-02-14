@@ -13,13 +13,6 @@
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
       <script th:inline="javascript">
       $(document).ready(function(){
-    	  
-    	  var errorMessage = [[${errorMessage}]];
-      	if(errorMessage != null){
-          	alert(errorMessage);
-      	}
-
-    	  
     	  var currentPosition = parseInt($(".array").css("top"));
     	  $(window).scroll(function() {
     	    var position = $(window).scrollTop(); 
@@ -32,12 +25,35 @@
 	function test1(){
 		$('.sidemenu').css('visibility','hidden');
 	}
-	
-	function search(target){
-		
-		var searchword
-		
+	function arraytest(){
+		$('.select1').css('visibility','visible');
 	}
+	function arraytest1(){
+		$('.select1').css('visibility','hidden');
+	}
+	
+	/* function search(target){
+		
+		var tag = $('#tags').val();
+		var param = JSON.stringify(tag);
+
+		$.ajax({
+			type: 'POST',
+			url: '/findpostbytagAJAX',
+			dataType : 'JSON',
+			async : false,
+			contentType:"application/json;charset=UTF-8",
+			success : function(result){	
+				console.log(param);
+				for(var i=0; i<param.length; i++){
+					var post = param[i];
+				}
+			},
+			error : function(xhr, status, error){
+				alert(xhr.responseText);
+			}
+		}) */
+
 	
       </script>
     </th:block>
@@ -52,7 +68,7 @@
       	padding: 0;
       }
       
-      .sidemenu{
+.sidemenu{
 	width: 150px;
 	height: 100%;
 	position: fixed;
@@ -60,6 +76,8 @@
 	top : 0%;
 	background-color: rgba(205,205,205, 1);
 	visibility: hidden;
+	text-align: center;
+	z-index: 2;
 }
       
       .content{
@@ -83,7 +101,7 @@
  .array{
 	position: absolute;
 	right: 3%;
-	top: 50%;
+	top: 30%;
 }
       
       .uparrow{
@@ -114,13 +132,13 @@
 	color: black;
 }
 
-.select{
+/* .select{
 	visibility: hidden;
 }
 
 .select:hover {
 	visibility: visible;
-}
+} */
 
       
       </style>
@@ -128,38 +146,65 @@
   </head>
   <body>
     <div layout:fragment="content">
+		<!-- MENU  -->
+		<div data-aos="fade-right" data-aos-duration="1000" class="sidemenu" onmouseover="test()" onmouseout="test1()">
+		<ul class="nav flex-column">
+		  <li class="nav-item">
+		    <a class="nav-link active" aria-current="page" href="/"><img src="/images/Logo.png" alt="logo" width="110px"></a>
+		  </li>
+		  <li class="nav-item" sec:authorize="isAuthenticated()">
+		    <a class="nav-link" href="/write"><img src="/images/write.png" alt="towrite" width="70px"></a>
+		  </li>
+		  <li class="nav-item" sec:authorize = "isAuthenticated()">
+		    <a class="nav-link" href="/find"><img src="/images/search.png" alt="tosearch" width="70px"></a>
+		  </li>
+		  <li class="nav-item" sec:authorize ="isAnonymous()" >
+		    <a class="nav-link" href="#photo"><img src="/images/search.png" alt="tosearch" width="70px"></a>
+		  </li>
+		  <li class="nav-item" sec:authorize="isAuthenticated()">
+		    <a class="nav-link" href="/like"><img src="/images/userheart.png" alt="tolike" width="70px"></a>
+		  </li>
+		  <li class="nav-item" sec:authorize="isAuthenticated()">
+		    <a class="nav-link" href="/user"><img src="/images/user.png" alt="touser" width="70px"></a>
+		  </li>
+		  <!-- <li class="nav-item" sec:authorize="isAuthenticated()">
+		    <a class="nav-link" href="/setting"><img src="/images/settings.png" alt="tosetting" width="70px"></a>
+		  </li> -->
+		  </ul>		
+		</div>
+
 
 		<!-- SEARCH DIV -->
 		<form class="row gx-3 gy-2 align-items-center search">
 		  <div class="col-lg-3">
-		    <label class="visually-hidden" for="keywords" onchange="AJAX">keywords</label>
-		    <input type="text" class="form-control" id="keywords" placeholder="looking for?" autocomplete="off" onkeyup="search(this)" aria-describedby="inputGroup-sizing-lg">
+		    <label class="visually-hidden" for="keywords" onchange="search()">keywords</label>
+		    <input type="text" class="form-control" id="tags" placeholder="looking for?" autocomplete="off" aria-describedby="inputGroup-sizing-lg">
 		  </div>
 <!-- 		  <div class="col-sm-3">
 		    <button type="submit" class="btn btn-primary">Submit</button>
 		  </div> -->
 		</form>
-    
-    	<!-- ARRAY LIST -->
-    	<div class="array"> 
+			<!-- PHOTO ARRAY -->
+			<div class="array" onmouseover="arraytest()" onmouseout="arraytest1()" style="text-align: center;" > 
     		<div class="arrayup"> <img class="uparrow" alt="" src="/images/double_arrows.png" width="50px"> </div>
-    		<div class="select1">
+    		<div class="select1" data-aos="zoom-in" style="visibility: hidden;">
     		    <label class="visually-hidden" for="specificSizeSelect">Preference</label>
     			<select class="select" id="specificSizeSelect">
-      			<option selected>select </option>
-     			<option value="1">like</option>
-     			<option value="2">created-date</option>
-     			<option value="3">upload-date</option>
-   				</select>	
+      			<option selected class="change" onchange="select()">Array TRABLES </option>
+     			<option value="1">by like</option>
+     			<option value="2">by createdtime</option>
+     			<option value="3">by recently created</option>
+     			<option value="4">by updatedtime</option>
+     			<option value="5">by recently updated</option>
+   				 </select>
     		</div>
     		<div class="arraydown"> <img class="downarrow" alt="" src="/images/double_arrows.png" width="50px"> </div>
-    	</div>
+    		</div>
     
     	<!-- IMG SECTION -->
  		<div class="con_center section" id = "section3" style="margin-top: 50px;">
 			<div data-aos="fade-up" data-aos-duration="1000">
 				<div class="row" style="">
-				
 					<th:block th:each="post : ${posts}">
 					<div class="col-md-3 align-self-center">
 						<div style="position: relative; z-index: 1;">
@@ -172,7 +217,6 @@
 						</div>
 					</div>						
 					</th:block>
-					
 				</div>
 			</div>
 			</div>

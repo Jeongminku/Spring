@@ -19,8 +19,10 @@ import com.wss.dto.BroadFormDto;
 import com.wss.dto.MemberFormDto;
 import com.wss.dto.MemberStreamerDto;
 import com.wss.entity.Broad;
+import com.wss.entity.Feed;
 import com.wss.entity.Member;
 import com.wss.repository.BroadRepository;
+import com.wss.repository.FeedRepository;
 import com.wss.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
 	private final BroadRepository broadRepository;
-	
+	private final FeedRepository feedRepository;
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Member member = memberRepository.findByEmail(email);
@@ -105,4 +107,13 @@ public class MemberService implements UserDetailsService {
 		return member.getId();
 	
 	}
+	
+	public void deleteMember(Long memberId) {
+		feedRepository.feedDel(memberId);
+		broadRepository.broadDel(memberId);
+		memberRepository.memberDel(memberId);
+
+	}
+	
+	
 }

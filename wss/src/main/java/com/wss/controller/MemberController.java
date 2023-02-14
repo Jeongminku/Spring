@@ -129,6 +129,12 @@ public class MemberController {
 			return "redirect:/";
 		}	
 	
-	
+	//회원 탈퇴
+		@GetMapping(value = "/deleteMember/{id}")
+		public String deleteMember(@PathVariable("id") Long memberid) {
+			memberService.deleteMember(memberid);
+			SecurityContextHolder.clearContext();
+			return "redirect:/";
+		}
 	
 } 

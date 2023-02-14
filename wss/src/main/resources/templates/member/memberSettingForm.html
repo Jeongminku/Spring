@@ -63,6 +63,19 @@
 	    	
 	    	$('#frm').submit()  //form태그의 아이디 를 버튼에서 서브밋함.
 	    }
+	    
+	    function exit(e) {
+	    	var question = confirm("탈퇴하시겠습니까? ")
+	    	if(question) {
+	    		alert("탈퇴합니다.");
+	    		location.href ="/members/deleteMember/"+e;
+	    		alert("정상적으로 탈퇴 되었습니다.")
+	    		// SecurityContextHolder.clearContext(); 구현할때 입력해보기.
+	    	} else {
+	    		alert("탈퇴를 취소합니다.")
+	    		return false;
+	    	}
+	    }
 		    
 	</script>
 </th:block>
@@ -122,8 +135,8 @@
                     <br>
                     
                     <div class="form-textbox row signWrap" style="text-align:center;">
-                        <button onclick="valid()" type="button" class="submitSign">수정</button>
-                        <button type="button" onclick="location.href='/'" class="submitSign">가입취소</button>
+                        <button type="button" onclick="valid()" class="submitSign">수정</button>
+                        <button type="button" th:onclick="exit([[${setmember.id}]])" class="submitSign">탈퇴</button>
                     </div>
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">         
                      </div>

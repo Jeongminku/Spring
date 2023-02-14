@@ -32,29 +32,18 @@ public class Feed extends BaseTimeEntity{
 	
 	private String feedcon;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="member_id")
 	private Member member; //멤버객체안에 이것저것잇음.	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="broad_id")
 	private Broad broad;
 	
-//	public static Feed createFeed(FeedDto feedDto, Member member) {
-//		Feed feed = new Feed();
-//		feed.setId(feedDto.getId());
-//		feed.setFeedTime(feedDto.getFeedTime());
-//		feed.setFeedcon(feedDto.getFeedCon());
-//		
-//		feed.setMember(member);
-//		
-//		return feed;
-//	}
-	
+
 	public static Feed createFeed(String feedcon, Member member, Broad broad) {
 		Feed feed = new Feed();
 		feed.setFeedcon(feedcon);
-		//feed.setFeedTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")).withNano(0));
 		feed.setMember(member);
 		feed.setBroad(broad);
 		

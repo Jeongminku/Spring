@@ -1,5 +1,8 @@
 package com.wss.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import org.apache.groovy.parser.antlr4.util.StringUtils;
@@ -55,8 +58,6 @@ public class Member {
 	//방송카테고리(스트리머 only)
 	private String category;
 	
-	
-
 //주석처리함
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
