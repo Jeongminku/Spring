@@ -54,14 +54,13 @@ public class MainController {
 		String email =  SecurityContextHolder.getContext().getAuthentication().getName();
 		Member member = memberService.findByEmail(email);
 		model.addAttribute("setmember", member);
-		System.out.println("셋멤버 시스아웃: " + member);
+//		System.out.println("셋멤버 시스아웃: " + member);
 		
 		return "main";
 	}
 	
-	
-	
-	
+
+//메인 - 방송국 페이지	
 	@GetMapping(value = {"/view", "/view/{id}"})
 	public String dtlpage(@PathVariable("id") Long memberid, Model model) {
 		
@@ -95,6 +94,8 @@ public class MainController {
 		return "/broad/broadDtl";
 	}
 
+	
+//피드 작성	
 	@PostMapping(value = {"/view", "/view/{id}"})	
 	public String feed(@RequestParam("feedcon") String feed, Model model, @PathVariable("id") Long broadId) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
@@ -113,5 +114,7 @@ public class MainController {
 		
 		return "redirect:/";
 	}
+	
+	
 	
 }
