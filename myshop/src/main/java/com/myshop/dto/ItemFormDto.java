@@ -42,9 +42,10 @@ public class ItemFormDto {
 	
 	public Item createItem() {
 		return modelMapper.map(this, Item.class); //첫 매개변수 this는 ItemFormDto 자체를 말합니다.
+		
 	}
 	
-	public static ItemFormDto of(Item item) {
+	public static ItemFormDto of(Item item) { //메소드 이름이 of
 		return modelMapper.map(item, ItemFormDto.class);
 	}
 }

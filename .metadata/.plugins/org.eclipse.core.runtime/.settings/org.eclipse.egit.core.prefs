@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=D\:\\project\\Spring\\.git;
-GitRepositoriesView.GitDirectories.relative=.git;
+GitRepositoriesView.GitDirectories=D\:\\project\\G4_HOSP\\.git;D\:\\project\\G4hosp\\G4_HOSP\\.git;D\:\\project\\Spring\\.git;
+GitRepositoriesView.GitDirectories.relative=D\:\\project\\G4_HOSP\\.git;D\:\\project\\G4hosp\\G4_HOSP\\.git;.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

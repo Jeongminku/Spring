@@ -2,6 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\project\G4_HOSP"/>
+			<item value="D:\project\G4hosp\G4_HOSP"/>
 			<item value="D:\project\Spring\trable"/>
 			<item value="D:\project\Spring\myshop"/>
 			<item value="D:\project\Spring\wss"/>

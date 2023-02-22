@@ -45,7 +45,7 @@ public class Broad {
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="member_id")
-	private Member member;	
+	private Member member;
 	
 	
 	public static Broad createBroad(BroadFormDto broadFormDto, Member member) {
