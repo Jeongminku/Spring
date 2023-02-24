@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -97,22 +98,22 @@ public class MainController {
 	
 //피드 작성	
 	@PostMapping(value = {"/view", "/view/{id}"})	
-	public String feed(@RequestParam("feedcon") String feed, Model model, @PathVariable("id") Long broadId) {
+	public String feed(@RequestBody String feed, Model model, @PathVariable("id") Long broadId) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
-
-		
 		try {
 			Member member = memberService.findByEmail(email);
 			Broad broad = broadService.findById(broadId);
 			Feed feed1 = Feed.createFeed(feed, member, broad);
 			feedService.saveFeed(feed1);
 			
+			List<Feed> listFeed = feedService.Feedjoinbroad(); //새로 댓글리스트를 다시 불러옴.
+			model.addAttribute("feed1", listFeed);
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage", "Feed를 작성할 수 없었습니다.");
 			return "member/memberForm";
 		}
 		
-		return "redirect:/";
+		return "/broad/broadDtl :: feedReview"; //fragment를 돌려줌.
 	}
 	
 	
