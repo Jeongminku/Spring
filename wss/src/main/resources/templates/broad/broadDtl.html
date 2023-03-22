@@ -40,7 +40,9 @@
                                     <div class="col-12" style="margin-bottom : 20px;">
                                         <div class="anime__review__item__text">
                                             <h6>[[${member.nickname}]]의 한마디</h6>
-                                            <p></p>
+                                            <p id="myToday"></p>
+                                            <input type="text" id="newToday">
+                                            <button type="button" onclick="mytoday()">한마디 수정하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -70,6 +72,8 @@
                                 	<!-- 날짜 자르기 substring -->
                                     <h6>[[${feedList.member.nickname}]] - <span>[[${#strings.substring(feedList.feedTime, 0, 10)}]] [[${#strings.substring(feedList.feedTime, 11, 19)}]]</span></h6>
                                     <p>[[${feedList.feedcon}]]</p>
+                                    <button type="button" class="delmsg" th:id="${feedList.id}">삭제</button>
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                 </div>
                                 <!-- <div class="FeedComment_wrap">
                                     <button class="FeedCommentBtn" type="button" ><i class="fa-solid fa-comment"></i></button>
@@ -131,10 +135,22 @@
 	            },
 	        })
 		});
+		
+		function mytoday() {
+			var newText = $("#newToday").val();
+			console.log(newText);
+			var text = $("#myToday");
+			text.innerHTML = newText;
+		}
+		
+		$(".delmsg").click(function() {
+			if(confirm("삭제하시겠습니까?")) {
+				$(location).attr("href", "/msg/del"+$(this).attr('id'))
+			}
+		})
     </script>
 </div>    	
-		<script
-			src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+		<script	src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 		<script>
 			var swiper = new Swiper(".mySwiper", {
 				cssMode : true,
@@ -157,13 +173,9 @@
 
 			});
 
+		
 			
-		</script>
-		
-		<!-- 댓글 등록 구현하기. -->
-		<script>
-
 		
 		</script>
-</body>
+		</body>
 </html>
