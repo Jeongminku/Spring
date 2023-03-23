@@ -236,8 +236,6 @@ input {
   }
 
 #email_id {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px; 
   border-bottom-right-radius: inherit;
   border-bottom-left-radius: inherit;
   }
@@ -249,10 +247,6 @@ input {
   
 }
 
-#email {
-  border: none;
-  border-left: solid 2px #ebebeb;
-  border-right: solid 2px #ebebeb; }
 
 input[type=checkbox]:not(old) {
   width: 2em;

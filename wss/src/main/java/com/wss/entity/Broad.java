@@ -43,6 +43,9 @@ public class Broad {
 	//방송카테고리(스트리머 only)
 	private String category;
 
+	//방송주소
+	private String broadUrl;
+	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="member_id")
 	private Member member;
@@ -53,7 +56,7 @@ public class Broad {
 		Broad broad = new Broad();
 		broad.setBroadInfo(broadFormDto.getBroadInfo());
 		broad.setCategory(broadFormDto.getCategory());
-
+		broad.setBroadUrl(broadFormDto.getBroadUrl());
 		//F키 값을 먼저 넣어줘야함.
 		broad.setMember(member);
 		

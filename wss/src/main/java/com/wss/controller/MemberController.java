@@ -59,7 +59,7 @@ public class MemberController {
 		model.addAttribute("memberFormDto", new MemberFormDto());
 		return "member/memberForm";		
 	}
-	
+		
 	//회원가입 버튼 클릭.
 	@PostMapping(value="/new")
 	public String memberForm(@Valid MemberFormDto memberFormDto, BroadFormDto broadFormDto, BindingResult bindingResult, 

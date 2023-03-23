@@ -20,7 +20,7 @@ public class BroadFormDto {
 	//방송 카테고리(스트리머 only)
 	private String category;
 
-	
+	private String broadUrl;
 	
 	public static ModelMapper modelMapper = new ModelMapper();
 	
@@ -34,8 +34,6 @@ public class BroadFormDto {
         if(broad == null){
             tmpSource = new Object();
         }
-
-        
 		return modelMapper.map(tmpSource, BroadFormDto.class);
 	}
 }

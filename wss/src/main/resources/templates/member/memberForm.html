@@ -41,9 +41,11 @@
 	    	if(viewonly.is(":checked")) {
 	    	$(".broadInfo").css('display','none');
 	    	$(".category").css('display','none');
+	    	$(".broadUrl").css('display','none');
 	    	} else {
 	    		$(".broadInfo").css('display', 'block');
 	    		$(".category").css('display','block');
+	    		$(".broadUrl").css('display','block');
 	    	}
 	    }
 
@@ -96,13 +98,13 @@
 	
 						<div class="form-textbox row">
 	                        <label th:for="nickname">닉네임</label>
-	                        <input type="text" th:field="*{nickname}" class="form-control" placeholder="닉네임 입력" style="padding-left: 100px;" />
+	                        <input type="text" th:field="*{nickname}" class="form-control" placeholder="닉네임 입력" style="padding-left: 100px; border-bottom-left-radius: inherit; border-bottom-right-radius: inherit;" />
 	                        <p th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="fieldError"></p>
 	                    </div>
 	
 	                    <div class="form-textbox row">
-	                        <label th:for="email">이메일</label>
-	                        <input type="email" th:field="*{email}" class="form-control" placeholder="abcd@email.com" style="padding-left: 100px;" />
+	                        <label th:for="email">아이디</label>
+	                        <input type="email" th:field="*{email}" class="form-control" placeholder="abcd@email.com" style="padding-left: 100px; border-radius:inherit " />
 	                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">잘못된 email 입력</p>
 	                    </div>
 	                    
@@ -112,6 +114,11 @@
 	                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">잘못된 password 입력</p>
 	                    </div>
 	
+						<div class="form-textbox row">
+	                        <label for="broadUrl" class="broadUrl">방송주소</label>
+	                        <input type="text" name="broadUrl" id="broadUrl" class="form-control broadUrl" style="padding-left: 100px; border-radius:inherit" />
+	                    </div>
+	                    
 						<div class="form-textbox row broadInfo">
 	                        <label for="broadInfo" >방송소개</label>
 	                        <textarea class="form-control" th:field="*{broadInfo}" placeholder = "방송소개적어주세요" style="padding-left: 100px; border-radius:inherit; width"></textarea>
