@@ -75,7 +75,7 @@ public class MainController {
 			Member member = memberService.getMember(memberid); //스트리머의 아이디를 통해서 스트리머 member객체를 가져옴.
 			model.addAttribute("member", member);
 			Broad broad = broadService.findById(member.getId());
-			//model.addAttribute("broad", broad);
+			model.addAttribute("broad", broad);
 			List <Feed> feedList = feedService.Feedjoinbroad();
 			List <Feed> listtest = new ArrayList<>();
 			for(int i=0; i<feedList.size(); i++) {

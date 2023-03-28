@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BroadController {
 	private final MemberService memberService;
+	private final BroadService broadService;
 		
 	@GetMapping(value = "/view/{id}/media")
 	public String dtlpage(@PathVariable("id") Long memberid, Model model) {
@@ -37,7 +38,7 @@ public class BroadController {
 			
 			Member member = memberService.getMember(memberid); //스트리머의 아이디를 통해서 스트리머 member객체를 가져옴.
 			model.addAttribute("member", member);
-			System.out.println("멤버값:" + member);
+			
 			
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage", "미디어를 불러올 수 없습니다.");

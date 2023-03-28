@@ -10,6 +10,9 @@
 <title>Insert title here</title>
 <script src="/js/owl.carousel.min.js"></script>
 
+<script th:inline="javascript">
+
+</script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -26,41 +29,54 @@
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <div class="anime__details__btn">
-                                    <h3>[[${member.nickname}]]</h3>                            
-                                    <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                    <a href="#" class="watch-btn"><span>Watch Now</span></a>
-                                </div>
+                               <div class="anime__details__btn">
+                                   <h3>[[${member.nickname}]]</h3>                            
+                                   <a th:href="${broad.broadUrl}" class="watch-btn" target="_blank" ><span>Watch Now</span></a>
+                               </div>
                             </div>
-                        <div>
-                            <p>[[${member.broadInfo}]]</p>
+                            <br>
+		                       <div>
+		                           <p>[[${member.broadInfo}]]</p>
+		                       </div>
                         </div>
-                            <div class="anime__details__widget">
-                                <div class="row">
-                                    <div class="col-12" style="margin-bottom : 20px;">
-                                        <div class="anime__review__item__text">
-                                            <h6>[[${member.nickname}]]의 한마디</h6>
-                                            <p id="myToday"></p>
-                                            <input type="text" id="newToday">
-                                            <button type="button" onclick="mytoday()">한마디 수정하기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <div class="anime__details__form">
-                            <div class="section-title">
-                                <h5>Your Comment</h5>
-                            </div>
+						<!--<div class="section-title">
+                                <h5></h5>
+                            </div> -->
+                       
                             <form method="post" th:action="'/view/'+${member.id}" id="feedCommentForm">
-                                <textarea placeholder="Your Comment" id="feedcon" name="feedcon"></textarea>
+                                <textarea placeholder="포스트를 남겨보세요." id="feedcon" name="feedcon"></textarea>
                                 <button class="comment_btn" type="submit" sec:authorize="isAuthenticated()" ><i class="fa fa-location-arrow"></i>Comment</button>
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                             </form>
+                            
+                            <!-- Button trigger modal -->
+
+						<button type="button" class="postbtn" data-toggle="modal" data-target="#staticBackdrop">
+  						&nbsp &nbsp 포스트를 남겨보세요.
+						</button>
+						<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="staticBackdropLabel">모달 타이틀</h5>
+						      </div>
+						      <div class="modal-body">
+						        ...
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-primary">Understood</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+                            	
                         </div>
                         <div class="anime__details__review" th:fragment="feedReview">
                             <th:block th:each="feedList : ${feed1}">
@@ -75,34 +91,15 @@
                                     <button type="button" class="delmsg" th:id="${feedList.id}">삭제</button>
                                     <input type="hidden" th:name="${_tcsrf.parameterName}" th:value="${_csrf.token}">
                                 </div>
-                                <!-- <div class="FeedComment_wrap">
-                                    <button class="FeedCommentBtn" type="button" ><i class="fa-solid fa-comment"></i></button>
-                                </div> -->
                                 <hr>
                             </div> 
                             </th:block>
                         </div>
                     </div>
-
-                    <!-- 오른쪽 사이드 -->
-                    <div class="col-lg-4 col-md-4">
-                        <div class="anime__details__sidebar">
-                            <div class="section-title">
-                                <h5>이거 보고갈래?</h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg">
-                                <h5><a href="https://www.youtube.com/embed/Empfi8q0aas"><img src="img/sidebar/ISECYPHER.jpg" alt="CYPHER"></a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg">
-                                <h5><a href="https://www.youtube.com/embed/Empfi8q0aas"><img src="img/sidebar/ISECYPHER.jpg" alt="CYPHER"></a></h5>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-    	</div>
+               	</div>
+           </div>
     </section>
+</div>
     <script>
 		$('#feedCommentForm').on('submit', function (e) {
 			e.preventDefault();
@@ -135,21 +132,9 @@
 	            },
 	        })
 		});
-		
-		function mytoday() {
-			var newText = $("#newToday").val();
-			console.log(newText);
-			var text = $("#myToday");
-			text.innerHTML = newText;
-		}
-		
-		$(".delmsg").click(function() {
-			if(confirm("삭제하시겠습니까?")) {
-				$(location).attr("href", "/msg/del"+$(this).attr('id'))
-			}
-		})
-    </script>
-</div>    	
+
+		</script>
+
 		<script	src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 		<script>
 			var swiper = new Swiper(".mySwiper", {
@@ -172,10 +157,6 @@
 				keyboard : true,
 
 			});
-
-		
-			
-		
-		</script>
+		</script>		
 		</body>
 </html>
