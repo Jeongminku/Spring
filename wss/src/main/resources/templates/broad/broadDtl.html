@@ -49,34 +49,15 @@
                                 <h5></h5>
                             </div> -->
                        
-                            <form method="post" th:action="'/view/'+${member.id}" id="feedCommentForm">
+							<form th:action="'/view/'+${member.id}" id="feedCommentForm">
                                 <textarea placeholder="포스트를 남겨보세요." id="feedcon" name="feedcon"></textarea>
                                 <button class="comment_btn" type="submit" sec:authorize="isAuthenticated()" ><i class="fa fa-location-arrow"></i>Comment</button>
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+								<button class="comment_btn22" id="myButton" type="button">버튼 연습용버튼</button>
                             </form>
                             
                             <!-- Button trigger modal -->
 
-						<button type="button" class="postbtn" data-toggle="modal" data-target="#staticBackdrop">
-  						&nbsp &nbsp 포스트를 남겨보세요.
-						</button>
-						<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="staticBackdropLabel">모달 타이틀</h5>
-						      </div>
-						      <div class="modal-body">
-						        ...
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-primary">Understood</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-                            	
+
                         </div>
                         <div class="anime__details__review" th:fragment="feedReview">
                             <th:block th:each="feedList : ${feed1}">
@@ -88,52 +69,55 @@
                                 	<!-- 날짜 자르기 substring -->
                                     <h6>[[${feedList.member.nickname}]] - <span>[[${#strings.substring(feedList.feedTime, 0, 10)}]] [[${#strings.substring(feedList.feedTime, 11, 19)}]]</span></h6>
                                     <p>[[${feedList.feedcon}]]</p>
-                                    <button type="button" class="delmsg" th:id="${feedList.id}">삭제</button>
-                                    <input type="hidden" th:name="${_tcsrf.parameterName}" th:value="${_csrf.token}">
+                                    <h2>[[${feedList.feedcon}]]</h2>
+									
                                 </div>
                                 <hr>
                             </div> 
                             </th:block>
                         </div>
+                        
                     </div>
                	</div>
            </div>
     </section>
-</div>
     <script>
-		$('#feedCommentForm').on('submit', function (e) {
-			e.preventDefault();
-			console.log("here?")
-			console.log($(this).attr('action'))
-			data = {
-				feedcon: $('#feedcon').val(),
-		    };
-			console.log(data)
-		    /* var feedData = JSON.stringify(data); */
-		 	$.ajax({
-	            url: $(this).attr('action'), //컨트롤러로 가는 주소값
-	            type: 'POST', //넘겨주는방식
-	            contentType: 'application/json', //보내는 데이터의 형식
-	            data: $('#feedcon').val(), //보내는 데이터 그 자체
-	            dataType: 'text', // 받는 데이터의 형식
-	            beforeSend: function (xhr) { //ajax하기전에 뭔가 해줌, 여기서는 csrf 토큰, 헤더 넣어주는것.
-	                xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"));
-	            },
-	            cache: false,
-	            success: function (frag) { //컨트롤러에서 받아온 fragment text를 frag라는 변수명으로 받아서 옴.   function(ajax가 성공했을때 받아온 데이터를 변수명으로 설정함.)
-	                console.log(frag)
-	                $('.anime__details__review').replaceWith(frag); //.anime__details__review로 replaceWith(text내용) 해줌.
-	            },
-	            error: function(jqXHR, status, error) {
-	                alert('error')
-	                console.log(error)
-	                console.log(status)
-	                console.log(jqXHR)
-	            },
-	        })
-		});
-
+    $('#feedCommentForm').on('submit', function (e) {
+        e.preventDefault();
+        console.log("here?")
+        console.log($(this).attr('action'))
+        data = {
+           feedcon: $('#feedcon').val(),
+         };
+        console.log(data)
+        console.log($("meta[name='_csrf_header']").attr("content"))
+         /* var feedData = JSON.stringify(data); 
+        
+        */
+         $.ajax({
+              url: $(this).attr('action'), //컨트롤러로 가는 주소값
+              type: 'POST', //넘겨주는방식
+              contentType: 'application/json', //보내는 데이터의 형식
+              data: $('#feedcon').val(), //보내는 데이터 그 자체
+              dataType: 'text', // 받는 데이터의 형식
+              beforeSend: function (xhr) { //ajax하기전에 뭔가 해줌, 여기서는 csrf 토큰, 헤더 넣어주는것.
+                  xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"));
+              },
+              cache: false,
+              success: function (frag) { //컨트롤러에서 받아온 fragment text를 frag라는 변수명으로 받아서 옴.   function(ajax가 성공했을때 받아온 데이터를 변수명으로 설정함.)
+                  console.log(frag)
+                  $('.anime__details__review').replaceWith(frag); //.anime__details__review로 replaceWith(text내용) 해줌.
+              },
+              error: function(jqXHR, status, error) {
+                  alert('error')
+                  console.log(error)
+                  console.log(status)
+                  console.log(jqXHR)
+              },
+          })
+     });
 		</script>
+</div>
 
 		<script	src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 		<script>
