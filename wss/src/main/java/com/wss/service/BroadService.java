@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wss.constant.Role;
+import com.wss.dto.BroadFormDto;
 import com.wss.entity.Broad;
 import com.wss.entity.Member;
 import com.wss.repository.BroadRepository;
@@ -33,7 +34,6 @@ public class BroadService {
 		return broadRepository.findByMemberId(id);
 	}
 	
-
 	@Value("${itemImgLocation}")
 	private String imgLocation;
 	

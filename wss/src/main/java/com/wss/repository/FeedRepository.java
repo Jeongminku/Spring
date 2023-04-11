@@ -20,8 +20,8 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "delete from feed where feed.member_id = :memId", nativeQuery = true)
-	void feedDel(@Param("memId") Long Id);
+	@Query(value = "delete from feed where feed.feed_id = :feedId", nativeQuery = true)
+	void feedDel(@Param("feedId") Long Id);
 	
 	
 }

@@ -22,7 +22,14 @@
 		        	<li class="nav-item active"><a th:href="'/view/'+${member.id}" class="nav-link">Feed</a></li>
 		        	<li class="nav-item dropdown">
 	            </li>
-		        	<li class="nav-item"><a th:href="'/view/'+${member.id}+'/media/'" class="nav-link">미디어</a></li>
+		        	<li class="nav-item">
+		        		<a th:href="'/view/'+${member.id}+'/media/'" class="nav-link">미디어</a>
+		        		<form th:action="@{/search/{memberId}(memberId=${member.id})}" method="get">
+		        			<input type="hidden" name="query" th:value="${member.nickname}">
+		        			<input type="hidden" name="number" th:value="10">
+		        			<button type="submit" class="nav-link">미디어22</button>
+		        		</form>
+		        	</li>
 		        	<li class="nav-item"><a th:href="${member.id}+'/fanart/'" class="nav-link">팬아트</a></li>
 		        </ul>
 		      </div>

@@ -2,9 +2,11 @@ package com.wss.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.api.services.youtube.model.Video;
 import com.wss.constant.Role;
 import com.wss.dto.FeedDto;
 import com.wss.dto.MemberStreamerDto;
@@ -31,6 +34,7 @@ import com.wss.repository.BroadRepository;
 import com.wss.service.BroadService;
 import com.wss.service.FeedService;
 import com.wss.service.MemberService;
+import com.wss.service.VideoService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,6 +46,7 @@ public class MainController {
 	private final BroadService broadService;
 	private final MemberService memberService;
 	private final FeedService feedService;
+	private final VideoService videoService;
 	
 	@GetMapping(value = "/")
 	public String main(Model model) {
@@ -65,12 +70,12 @@ public class MainController {
 	@GetMapping(value = {"/view", "/view/{id}"})
 	public String dtlpage(@PathVariable("id") Long memberid, Model model) {
 		
-		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함 
+		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
 		try {
 			
 			Member setmember = memberService.findByEmail(email);
 			model.addAttribute("setmember", setmember);
-			
+			model.addAttribute("loginmember", setmember);
 			
 			Member member = memberService.getMember(memberid); //스트리머의 아이디를 통해서 스트리머 member객체를 가져옴.
 			model.addAttribute("member", member);
@@ -83,15 +88,20 @@ public class MainController {
 					listtest.add(feedList.get(i));
 				}
 			}
-			
 			model.addAttribute("feed", feedList);
-
+			
 			model.addAttribute("feed1", listtest);
 			
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage", "게시물 / 사용자를 불러올 수 없습니다.");
 			return "main";
 		}
+		
+		
+        List<Video> videos = videoService.getMostPopularVideos();
+        model.addAttribute("videos", videos);
+	  
+		
 		return "/broad/broadDtl";
 	}
 
@@ -116,6 +126,16 @@ public class MainController {
 		return "/broad/broadDtl :: feedReview"; //fragment를 돌려줌.
 	}
 	
-	
+//피드 삭제
+	@GetMapping(value = {"/del/{feedId}"})
+	public String delFeed(@PathVariable("feedId") Long FeedId, Long pageId, Model model, HttpServletResponse resp) {
+		try {
+			feedService.feedDel(FeedId);
+		}catch (Exception e) {
+			model.addAttribute("errorMessage", "Feed 삭제중 에러가 발생하였습니다.");
+			return AlertMethod.redirectAfterAlert("실패실패.", "/", resp);
+		}
+		return AlertMethod.redirectAfterAlert("Feed가 삭제되었습니다.", "/"+pageId, resp);
+	}
 	
 }

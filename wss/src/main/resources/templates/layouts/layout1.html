@@ -49,11 +49,11 @@
 	
 	<div th:replace="fragments/footer::footer"></div>
 	<script th:inline="javascript">
-    var btnDelete = document.getElementById('clear');
-    var inputFocus = document.getElementById('inputFocus');
+/*     var btnDelete = document.getElementById('clear'); */
+/*     var inputFocus = document.getElementById('inputFocus'); */
 
-    btnDelete.addEventListener('click', function(e)
-    {
+/* btnDelete.addEventListener('click', function(e) */
+/*    {
       e.preventDefault();
       inputFocus.value = ''
     })
@@ -68,8 +68,8 @@
 
         inputFocus.classList.remove('isFocus')
       }
-    });
-    function readURL(input) {
+    }); */
+ /*    function readURL(input) {
     	  if (input.files && input.files[0]) {
     	    var reader = new FileReader();
     	    reader.onload = function(e) {
@@ -79,7 +79,7 @@
     	  } else {
     	    document.getElementById('preview').src = "";
     	  }
-    };
+    }; */
     
 </script>
 </body>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout2}">
+<head>
+<meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<title>Insert title here</title>
+<script src="/js/owl.carousel.min.js"></script>
+
+<script th:inline="javascript">
+
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<section class="anime-details spad">
+	        <div class="container">
+	            
+	           </div>
+	    </section>
+	</div>
+</body>
+</html>

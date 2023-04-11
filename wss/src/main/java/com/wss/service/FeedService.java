@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.wss.dto.FeedDto;
 import com.wss.entity.Broad;
 import com.wss.entity.Feed;
 import com.wss.entity.Member;
@@ -29,5 +30,12 @@ public class FeedService {
 		return feedRepository.Feedjoinbroad();
 	}
 	
+	public void feedDel(Long id) {
+		Feed feed = feedRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+		feedRepository.feedDel(feed.getId());
+	}
 	
+	public Optional<Feed> findFeed(Long id) {
+		return feedRepository.findById(id);
+	}
 }
