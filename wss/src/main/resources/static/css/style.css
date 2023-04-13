@@ -1954,7 +1954,7 @@ ol {
 -----------------------*/
 
 .footer {
-	background: #070720;
+	background: #212529;
 	padding-top: 60px;
 	padding-bottom: 40px;
 	position: relative;
@@ -2460,4 +2460,24 @@ ol {
   width: 80%;
   max-width: 500px;
   position: relative;
+}
+
+.btn-secondary{
+	border:none;
+}
+
+.btn-secondary:active{
+	outline: none;
+	border: none;
+}
+
+.btn-secondary:hover {
+	color: red;
+	border-color: #fff;
+	font-weight: 600;
+}
+
+.anime-details,
+.spad{
+	
 }

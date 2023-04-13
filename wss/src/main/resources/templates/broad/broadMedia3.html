@@ -9,22 +9,58 @@
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>Insert title here</title>
 <script src="/js/owl.carousel.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/owl.carousel.min.css">
 <script th:inline="javascript">
 	$(document).ready(function() {
 	    var owl = $('.owl-carousel');
 	    owl.owlCarousel({
-	        items: 2,
+	        items: 5,
 	        loop: false,
 	        margin: 10,
 	        nav: true,
 	        dots: false,
-	        slideBy: 1,
 	        navText: ["<span class='fa fa-chevron-left'></span>", "<span class='fa fa-chevron-right'></span>"],
 	    });
 	});
 </script>
+	<style>
+		.owl-controls {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 10px;
+		}
 
+		.owl-controls .owl-prev,
+		.owl-controls .owl-next {
+			width: 50px;
+			height: 50px;
+			background-color: #ffffff;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+			cursor: pointer;
+		}
+
+		.owl-controls .owl-prev:hover,
+		.owl-controls .owl-next:hover {
+			background-color: #cccccc;
+		}
+
+		.owl-controls .owl-prev i,
+		.owl-controls .owl-next i {
+			font-size: 30px;
+		}
+
+		.owl-controls .owl-prev {
+			margin-right: 10px;
+		}
+		
+		.owl-carousel .owl-item {
+		margin: 0 20px
+		}
+	</style>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -34,17 +70,16 @@
 					<div class="col-md-1">
 						<div class="owl-controls">
 							<div class="owl-prev">
-								
+								<i class="fa fa-angle-left"></i>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-10">
-						<h3>최근 업로드된 동영상</h3>
-						<br>
-						<ul class="owl-carousel owl-theme" style="list-style:none">
+						<h3>Search Results</h3>
+						<ul class="owl-carousel">
 							<!-- for each 동영상 리스트 나열 -->
 							<li class="item" th:each="result : ${searchResults}">
-								<iframe th:src="'https://www.youtube.com/embed/' + ${result.id.videoId}" width="100%" height="320px" frameborder="0" allowfullscreen></iframe>				        
+								<iframe th:src="'https://www.youtube.com/embed/' + ${result.id.videoId}" width="100%" frameborder="0" allowfullscreen></iframe>				        
 								<a th:href="'https://www.youtube.com/embed' + ${result.id.videoId}" th:taget="_blank">[[${result.snippet.title}]]
 								</a>
 							</li>
@@ -53,7 +88,7 @@
 					<div class="col-md-1">
 						<div class="owl-controls">
 							<div class="owl-next">
-								
+								<i class="fa fa-angle-right"></i>
 							</div>
 						</div>
 					</div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div th:fragment="header2">
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		    <div class="container-fluid">
+		    
+		      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+		        <span class="fa fa-bars"></span> Menu
+		      </button>
+		      <div class="collapse navbar-collapse" id="ftco-nav">
+		        <ul class="navbar-nav m-auto">
+		        
+		        								<!-- 여기 a태그 수정해야되용.  -->
+		        								<!-- th:action="'/view/'+${member.id} -->
+		        	<li class="nav-item active"><a th:href="'/view/'+${member.id}" class="nav-link">Feed</a></li>
+		        	<li class="nav-item dropdown">
+	            </li>
+		        	<li class="nav-item">
+		        		<a th:href="'/view/'+${member.id}+'/media/'" class="nav-link">미디어</a>
+		        		<form th:action="@{/search/{memberId}(memberId=${member.id})}" method="get">
+		        			<input type="hidden" name="query" th:value="${member.nickname}">
+		        			<input type="hidden" name="number" th:value="10">
+		        			<button type="submit" class="nav-link">미디어22</button>
+		        		</form>
+		        	</li>
+		        	<li class="nav-item"><a th:href="${member.id}+'/fanart/'" class="nav-link">팬아트</a></li>
+		        </ul>
+		      </div>
+		    </div>
+		</nav>
+
+	</div>
+</body>
+</html>

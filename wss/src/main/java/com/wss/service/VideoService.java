@@ -57,7 +57,7 @@ public class VideoService {
     public List<SearchResult> searchVideos(final String queryTerm, final long number) {
         try {
             final YouTube.Search.List search = youtube.search().list("id,snippet");
-            search.setKey("apiKey");
+            search.setKey(apiKey);
             search.setQ(queryTerm);
             search.setType("video");
             search.setFields("items(id/videoId,snippet/title)");

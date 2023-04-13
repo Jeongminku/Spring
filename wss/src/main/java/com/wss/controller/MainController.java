@@ -102,9 +102,47 @@ public class MainController {
         model.addAttribute("videos", videos);
 	  
 		
-		return "/broad/broadDtl";
+		return "broad/broadDtl";
 	}
 
+//Post FEED버튼
+	@PostMapping(value = {"/view/{id}"})
+	public String dtlFeedpage(@PathVariable("id") Long memberid, Model model) {
+		
+		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
+		try {
+			
+			Member setmember = memberService.findByEmail(email);
+			model.addAttribute("setmember", setmember);
+			model.addAttribute("loginmember", setmember);
+			
+			Member member = memberService.getMember(memberid); //스트리머의 아이디를 통해서 스트리머 member객체를 가져옴.
+			model.addAttribute("member", member);
+			Broad broad = broadService.findById(member.getId());
+			model.addAttribute("broad", broad);
+			List <Feed> feedList = feedService.Feedjoinbroad();
+			List <Feed> listtest = new ArrayList<>();
+			for(int i=0; i<feedList.size(); i++) {
+				if(feedList.get(i).getBroad().getId() == broad.getId()) {
+					listtest.add(feedList.get(i));
+				}
+			}
+			model.addAttribute("feed", feedList);
+			
+			model.addAttribute("feed1", listtest);
+			
+		} catch (EntityNotFoundException e) {
+			model.addAttribute("errorMessage", "게시물 / 사용자를 불러올 수 없습니다.");
+			return "main";
+		}
+		
+		
+        List<Video> videos = videoService.getMostPopularVideos();
+        model.addAttribute("videos", videos);
+	  
+		
+		return "broad/broadDtl";
+	}
 	
 //피드 작성	
 	@PostMapping(value = {"/view", "/view/{id}"})	
