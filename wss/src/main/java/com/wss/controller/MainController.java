@@ -68,12 +68,17 @@ public class MainController {
 
 //메인 - 방송국 페이지	
 	@GetMapping(value = {"/view", "/view/{id}"})
-	public String dtlpage(@PathVariable("id") Long memberid, Model model) {
+	public String dtlpage(@PathVariable("id") Long memberid, Model model, HttpServletResponse resp) {
 		
 		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
+		
 		try {
 			
 			Member setmember = memberService.findByEmail(email);
+			if (setmember == null) {
+				
+				return AlertMethod.redirectAfterAlert("로그인이 필요한 서비스입니다", "/members/login", resp);
+			}
 			model.addAttribute("setmember", setmember);
 			model.addAttribute("loginmember", setmember);
 			
@@ -106,7 +111,7 @@ public class MainController {
 	}
 
 //Post FEED버튼
-	@PostMapping(value = {"/view/{id}"})
+/*	@PostMapping(value = {"/view/feed/{id}"})
 	public String dtlFeedpage(@PathVariable("id") Long memberid, Model model) {
 		
 		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
@@ -143,27 +148,60 @@ public class MainController {
 		
 		return "broad/broadDtl";
 	}
-	
+*/	
 //피드 작성	
 	@PostMapping(value = {"/view", "/view/{id}"})	
 	public String feed(@RequestBody String feed, Model model, @PathVariable("id") Long broadId) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
 		try {
 			Member member = memberService.findByEmail(email);
+			model.addAttribute("loginmember", member);
+			
 			Broad broad = broadService.findById(broadId);
+			model.addAttribute("broad", broad);
+
 			Feed feed1 = Feed.createFeed(feed, member, broad);
 			feedService.saveFeed(feed1);
 			
-			List<Feed> listFeed = feedService.Feedjoinbroad(); //새로 댓글리스트를 다시 불러옴.
-			model.addAttribute("feed1", listFeed);
+			List <Feed> feedList = feedService.Feedjoinbroad();
+			List <Feed> listtest = new ArrayList<>();
+			for(int i=0; i<feedList.size(); i++) {
+				if(feedList.get(i).getBroad().getId() == broad.getId()) {
+					listtest.add(feedList.get(i));
+				}
+			}
+			model.addAttribute("feed", feedList);
+			
+			model.addAttribute("feed1", listtest);
+			
+			
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage", "Feed를 작성할 수 없었습니다.");
 			return "member/memberForm";
 		}
-		
 		return "/broad/broadDtl :: feedReview"; //fragment를 돌려줌.
 	}
-	
+//	//피드 작성 백업	
+//		@PostMapping(value = {"/view", "/view/{id}"})	
+//		public String feed(@RequestBody String feed, Model model, @PathVariable("id") Long broadId) {
+//			String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
+//			try {
+//				Member member = memberService.findByEmail(email);
+//				model.addAttribute("loginmember", member);
+//				
+//				Broad broad = broadService.findById(broadId);
+//				Feed feed1 = Feed.createFeed(feed, member, broad);
+//				feedService.saveFeed(feed1);
+//				List<Feed> listFeed = feedService.Feedjoinbroad(); //새로 댓글리스트를 다시 불러옴.
+//				model.addAttribute("feed1", listFeed);
+//				
+//			} catch (EntityNotFoundException e) {
+//				model.addAttribute("errorMessage", "Feed를 작성할 수 없었습니다.");
+//				return "member/memberForm";
+//			}
+//			return "/broad/broadDtl :: feedReview"; //fragment를 돌려줌.
+//		}
+//	
 //피드 삭제
 	@GetMapping(value = {"/del/{feedId}"})
 	public String delFeed(@PathVariable("feedId") Long FeedId, Long pageId, Model model, HttpServletResponse resp) {

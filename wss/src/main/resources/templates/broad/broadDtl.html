@@ -9,26 +9,36 @@
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>Insert title here</title>
 <script src="/js/owl.carousel.min.js"></script>
-
+<link rel="stylesheet" href="/css/board.css">
 <script th:inline="javascript">
  $(function(){
 	 $('.delete').click(function(){
 	 var id = $(this).data('id');
-	 $.ajax({
-		 url: '/del/' + id,
-		 type: 'GET',
-		 success: function(result) {
-			 alert('게시물이 삭제되었습니다.');
-			 window.location.reload();
-		 },
-		 error: function(xhr, status, error) {
-			 alert('게시물 삭제 실패 실패');
-			 console.log(xhr.responseText);
-			 }
-	 	});		 
+	 if(confirm("게시물을 삭제하시겠습니까?")) {
+		 $.ajax({
+			 url: '/del/' + id,
+			 type: 'GET',
+			 success: function(result) {
+				 alert('게시물이 삭제되었습니다.');
+				 window.location.reload();
+			 },
+			 error: function(xhr, status, error) {
+				 alert('게시물 삭제 실패 실패');
+				 console.log(xhr.responseText);
+				 }
+		 	});		 		 
+	 	}
 	 });
  });
 </script>
+<style>
+	#only_feedcon{
+		border: 1px dashed #ddd;
+	}
+	#only_feedcon:hover{
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -39,7 +49,6 @@
                     <div class="col-lg-3">
                         <div class="anime__details__pic set-bg">
                         	<img class="img-fluid" th:src="${member.imgUrl}" alt="streamer image">
-<!--                             <div class="view"><i class="fa-solid fa-heart"></i> 9141</div> -->
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -65,10 +74,11 @@
                                 <h5></h5>
                             </div> -->
                        
+								<textarea placeholder="로그인하고 피드를 남겨보세요." id="only_feedcon" name="only_feedcon" onclick="location.href='/members/login';" readonly sec:authorize="anonymous"></textarea>
+							
 							<form th:action="'/view/'+${member.id}" id="feedCommentForm">
-                                <textarea placeholder="포스트를 남겨보세요." id="feedcon" name="feedcon"></textarea>
+                                <textarea placeholder="포스트를 남겨보세요." id="feedcon" name="feedcon" style="border: 1px dashed #ddd;" sec:authorize="isAuthenticated()"></textarea>
                                 <button class="comment_btn" type="submit" sec:authorize="isAuthenticated()" ><i class="fa fa-location-arrow"></i>Comment</button>
-								<button class="comment_btn22" id="myButton" type="button">버튼 연습용버튼</button>
                             </form>
                             
                             <!-- Button trigger modal -->
@@ -77,30 +87,29 @@
                         </div>
                         <div class="anime__details__review" th:fragment="feedReview">
                             <th:block th:each="feedList : ${feed1}">
-                            <div class="anime__review__item col-7" >
+                            <div class="anime__review__item" >
                                 <div class="anime__review__item__pic">
                                     <img th:src="${feedList.member.imgUrl}" alt="">
                                 </div>
                                 <div class="anime__review__item__text" style="margin: 10px 0px;">
                                 	<!-- 날짜 자르기 substring -->
-                                    <h6>[[${feedList.member.nickname}]] - <span>[[${#strings.substring(feedList.feedTime, 0, 10)}]] [[${#strings.substring(feedList.feedTime, 11, 19)}]]</span></h6>
+                                    <h6>[[${feedList.member.nickname}]] <span>[[${#strings.substring(feedList.feedTime, 0, 10)}]] [[${#strings.substring(feedList.feedTime, 11, 19)}]]</span></h6>
                                     <p>[[${feedList.feedcon}]]</p>
-                                    <h2>[[${feedList.feedcon}]]</h2>
                                 </div>
                                 
-                                <div th:if="${feedList.member.id} == ${loginmember.id} or ${feedList.broad.member.id} == ${loginmember.id}">
+                                <div th:if="${feedList.member.id} == ${loginmember.id} or ${feedList.broad.member.id} == ${loginmember.id}" style="text-align:right">
                                 <!-- <a th:href="'/del/' + ${feedList.id}">삭제</a> -->
-                                <button type="button" class="delete" th:data-id="${feedList.id}">삭제버튼</button>
+                                <button type="button" class="delete btn btn-secondary" th:data-id="${feedList.id}">삭제</button>
                                 </div>
-                                <hr>
                             </div> 
+                                <hr>
                             </th:block>
                         </div>
                         
                     </div>
                    <div class="col-5">
-                   <h3>유튜브 인기영상</h3>
-                   	<ul style="list-style:none">
+                   <h3 style="text-align:center; padding: 10px;">유튜브 인기영상</h3>
+                   	<ul style="list-style:none; display:flex; flex-direction:column; align-items: center;">
                    		<li th:each="video : ${videos}">
        						<iframe th:src="'https://www.youtube.com/embed/' + ${video.getId()}" style="display:block; width:25vw; height:13vw;" frameborder="0" allowfullscreen></iframe>
        						</br>
@@ -136,9 +145,11 @@
               success: function (frag) { //컨트롤러에서 받아온 fragment text를 frag라는 변수명으로 받아서 옴.   function(ajax가 성공했을때 받아온 데이터를 변수명으로 설정함.)
                   console.log(frag)
                   $('.anime__details__review').replaceWith(frag); //.anime__details__review로 replaceWith(text내용) 해줌.
+                  $('#feedcon').val('');
+                  alert("코멘트가 등록되었습니다.")
               },
               error: function(jqXHR, status, error) {
-                  alert('error')
+                  alert('포스트 등록에 실패하였습니다.')
                   console.log(error)
                   console.log(status)
                   console.log(jqXHR)

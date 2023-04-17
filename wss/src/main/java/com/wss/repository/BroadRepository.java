@@ -19,4 +19,8 @@ public interface BroadRepository extends JpaRepository<Broad, Long>{
 	@Transactional
 	@Query(value = "delete from broad where broad.member_id = :memId", nativeQuery = true)
 	void broadDel(@Param("memId") Long Id);
+	
+	
+	@Query(value = "select broad_id from broad where member_id = :memberId", nativeQuery = true)
+	Long findBroadId(@Param("memberId") Long memberId);
 }

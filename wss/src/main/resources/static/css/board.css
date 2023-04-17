@@ -34,17 +34,32 @@ a {
 	font-size: 1.1rem;
 }
 
-.bt_wrap {
+.board_page {
 	margin-top: 30px;
 	text-align: center;
+}
+
+/* .board_page a {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #ddd;
+} */
+
+
+.bt_wrap {
+	margin-top: 20px;
+	text-align: center;
 	font-size: 0;
+	display: flex;
+	justify-content:center;
 }
 
 .bt_wrap a {
 	display: inline-block;
 	min-width: 80px;
 	margin-left: 10px;
-	padding: 10px;
+	padding: 8px;
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 0.8rem;
@@ -269,3 +284,60 @@ l
 	vertical-align: middle;
 }
 
+.board-img {
+	width: 262.5px; 
+	height: 262.5px; 
+	display: flex; 
+	align-items: center; 
+	justify-content: center;	
+}
+
+.anime__details__form {
+	padding-bottom: 60px;
+}
+
+
+.comment_btn {
+  width: 140px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+.comment_btn:hover {
+  background-color: #2EE59D;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+/* img 중앙정렬  */
+.anime__details__pic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.delete {
+	font-size: 13px;
+}
+
+.delete:hover {
+	color: #fff;
+}
+
+.board-img-text {
+	margin-top: 13px;
+}

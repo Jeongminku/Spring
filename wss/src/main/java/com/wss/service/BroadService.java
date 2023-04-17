@@ -34,6 +34,10 @@ public class BroadService {
 		return broadRepository.findByMemberId(id);
 	}
 	
+	public Long findBroadId(Long memberId) {
+		return broadRepository.findBroadId(memberId);
+	}
+	
 	@Value("${itemImgLocation}")
 	private String imgLocation;
 	

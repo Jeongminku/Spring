@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout2}">
+	layout:decorate="~{layouts/layout3}">
 <head>
 <meta charset="UTF-8">
 <meta name="_csrf" th:content="${_csrf.token}"/>
@@ -18,41 +18,38 @@
 		<section class="anime-details spad">
 	        <div class="container">
 	           <div class="board_wrap">
-	           		<strong>공지사항</strong>
-	           		<p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
+	           		<h3>팬아트</h3>
+	           		<p>여러분의 소중한 작품을 모두에게 알리세요.</p>
 	           </div>
 	           <div class="board_view_wrap">
 	           		<div class="board_view">
 	           			<div class="title">
-	           				글 제목이 들어갑니다.
+	           				[[${boardInfo.title}]]
+	           				
 	           			</div>
 	           			<div class="info">
 	           				<dl>
-	           					<dt>번호</dt>
-	           					<dd>1</dd>
-	           				</dl>
-	           				<dl>
 	           					<dt>글쓴이</dt>
-	           					<dd>김이름씨</dd>
+	           					<dd>[[${boardInfo.writer}]]</dd>
 	           				</dl>
 	           				<dl>
 	           					<dt>작성일</dt>
-	           					<dd>2022.22.22</dd>
-	           				</dl>
-	           				<dl>
-	           					<dt>조회</dt>
-	           					<dd>333</dd>
+								<dd th:text="${#temporals.format(boardInfo.regTime, 'yyyy-MM-dd  HH:mm')}"></dd>
 	           				</dl>
 	           			</div>
-	           			<div class="cont">
-	           				글 내용이 들어갑니다.
+	           			<div class="cont" style="text-align:center;">
+	           				<img th:src="@{${boardInfo.imgUrl}}" alt="Board Image">
+	           				<p th:text="${boardInfo.content}" style="text-align:left"></p>
+	           				
 	           			</div>
-	           			<div></div>
 	           		</div>
 	           		<div class="bt_wrap">
 		           		<div class="bt_wrap">
-		           			<a href="#" class="on">목록</a>
-		           			<a href="#">수정</a>
+		           			<form th:action="@{/board/{memberId}(memberId=${boardInfo.broad.member.id})}" method="get">
+    							
+    							<button type="submit" class="on">목록</button>
+							</form>
+		           			<a th:href="@{/board/edit/{boardId}(boardId=${boardInfo.id})}">수정</a>
 		           		</div>
 	           		</div>
 	           </div>

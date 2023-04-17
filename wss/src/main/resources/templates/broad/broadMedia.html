@@ -2,14 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout2}">
+	layout:decorate="~{layouts/layout3}">
 <head>
 <meta charset="UTF-8">
 <meta name="_csrf" th:content="${_csrf.token}"/>
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>Insert title here</title>
 <script src="/js/owl.carousel.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/board.css">
 <script th:inline="javascript">
 	$(document).ready(function() {
 	    var owl = $('.owl-carousel');

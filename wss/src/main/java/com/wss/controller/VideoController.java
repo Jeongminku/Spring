@@ -31,12 +31,35 @@ public class VideoController {
 	private final VideoService videoService;
 	private final MemberService memberService;
 	
-	@PostMapping("/search/{memberId}")
-	public String searchVideos(@RequestParam String query, @RequestParam long number, Model model, @PathVariable Long memberId) {
-		String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함
-		Member loginMember = memberService.findByEmail(email);
-		Member setmember = memberService.getMember(loginMember.getId());
-		model.addAttribute("setmember",setmember);
+//	@PostMapping("/search/{memberId}")
+//	public String searchVideos(@RequestParam String query, @RequestParam long number, Model model, @PathVariable Long memberId) {
+//		
+////		 String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함 
+////		 Member loginMember = memberService.findByEmail(email); 
+////		 Member setmember = memberService.getMember(loginMember.getId());
+////		 model.addAttribute("setmember",setmember);	 
+//		
+//		try {
+//			Member member = memberService.getMember(memberId);
+//			model.addAttribute("member", member);
+//		}catch (EntityNotFoundException e) {
+//			model.addAttribute("errorMessage", "member를 불러올 수 없었습니다.");
+//			return "main";
+//		}
+//		
+//		List<SearchResult> searchResults = videoService.searchVideos(query, number);
+//		System.err.println(searchResults.get(0));
+//		model.addAttribute("searchResults", searchResults);
+//		
+//		return "broad/broadMedia";
+//	}
+	@GetMapping("/search/{memberId}")
+	public String searchVideos2(@RequestParam String query, @RequestParam long number, Model model, @PathVariable Long memberId) {
+		
+//		 String email = SecurityContextHolder.getContext().getAuthentication().getName(); //View에서 로그인한 아이디랑 이 멤버의 아이디가 비교가 필요하면 필요함 
+//		 Member loginMember = memberService.findByEmail(email); 
+//		 Member setmember = memberService.getMember(loginMember.getId());
+//		 model.addAttribute("setmember",setmember);	 
 		
 		try {
 			Member member = memberService.getMember(memberId);
@@ -47,6 +70,7 @@ public class VideoController {
 		}
 		
 		List<SearchResult> searchResults = videoService.searchVideos(query, number);
+		System.err.println(searchResults.size());
 		model.addAttribute("searchResults", searchResults);
 		
 		return "broad/broadMedia";

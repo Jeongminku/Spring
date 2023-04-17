@@ -28,27 +28,19 @@
 		        	</form> -->
 		        	</li>
 		        	<li class="nav-item">
-		        		<form th:action="@{/search/{memberId}(memberId=${member.id})}" method="post">
+		        		<form th:action="@{/search/{memberId}(memberId=${member.id})}" method="get">
 		        			<input type="hidden" name="query" th:value="${member.nickname}">
 		        			<input type="hidden" name="number" th:value="10">
 		        			<button type="submit" class="btn btn-secondary"  style="margin-right:50px; min-width: 135px; background-color:#343a40;">미디어</button>
 		        		</form>
 		        	</li>
 		        	<li class="nav-item">
-		        		<form th:action="@{/board/{memberId}(memberId=${member.id})}" method="post">
-		        			<input type="hidden" name="memberId" th:value="${member.id}">
-		        			<button type="submit" class="btn btn-secondary" style="margin-right:50px; min-width: 135px; background-color:#343a40;">비밀글</button>
-		        		</form> 
-		        	</li>
-		        	<li class="nav-item">
 		        		<form th:action="@{/board/{memberId}(memberId=${member.id})}" method="get">
 		        			<input type="hidden" name="memberId" th:value="${member.id}">
-		        			<button type="submit" class="btn btn-secondary" style="margin-right:50px; min-width: 135px; background-color:#343a40;">비밀글</button>
+		        			<button type="submit" class="btn btn-secondary" style="margin-right:50px; min-width: 135px; background-color:#343a40;">팬아트</button>
 		        		</form> 
 		        	</li>
 		        	
-		        	<li class="nav-item"><a th:href="${member.id}+'/fanart/'" class="nav-link">팬아트</a>
-		        	</li>
 		        </ul>
 		      </div>
 		    </div>

@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div th:fragment="header">
+	<div th:fragment="header3">
 		<nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/"><img src="/img/ju_taime.png" style="width: 150px;" alt="logo"></a>
@@ -20,8 +20,7 @@
                         		<a href="/members/login" class="sign_icon" sec:authorize="isAnonymous()"><i class="fa-solid fa-user" style="font-size: 40px; margin: 10px;" ></i></a>
                             </div>
                             
-                        <a th:href="'/'+'members/setting/'+${setmember.id}" class="setting_icon" sec:authorize="isAuthenticated()"><i class="fa-solid fa-address-card" style="font-size: 40px; margin: 10px;"></i></a>
-                        <a class="nav-link" href="/members/logout" sec:authorize="isAuthenticated()" style=" padding: 19px;">로그아웃</a>
+	                        <a class="nav-link" href="/members/logout" sec:authorize="isAuthenticated()" style=" padding: 19px;">로그아웃</a>
                     	</div>
 					</div>                    
                 </form>

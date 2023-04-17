@@ -65,9 +65,9 @@ public class Board {
 		return board;
 	}
 	
-	public void updateImg(String imgName, String imgUrl, String imgOri) {
-		this.imgName = imgName;
-		this.imgUrl = imgUrl;
+	public void updateImg(String imgName, String imgUrl,String imgOri) {
 		this.imgOri = imgOri;
+		this.imgUrl = imgUrl;
+		this.imgName = imgName;
 	}
 }
